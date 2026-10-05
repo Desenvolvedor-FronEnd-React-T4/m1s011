@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cidades monitoradas — PrevisaoCerta</title>
+  <meta name="description" content="Exercício de localStorage com array de objetos: lista de cidades que sobrevive ao F5." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Cidades monitoradas</h1></header>
+
+  <main class="container">
+    <!-- role="status": o leitor de tela anuncia mensagens como "Curitiba adicionada." -->
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section class="cartao" aria-labelledby="t-add">
+      <h2 id="t-add">Adicionar cidade</h2>
+      <form id="form-cidade">
+        <label for="input-cidade">Nome da cidade</label>
+        <div class="linha">
+          <input type="text" id="input-cidade" name="cidade" autocomplete="off" />
+          <button type="submit" class="btn">Adicionar</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-lista">
+      <h2 id="t-lista">Sua lista</h2>
+      <p id="msg-vazio" class="nota" hidden>Nenhuma cidade ainda. Adicione a primeira!</p>
+      <ul id="lista" class="lista"></ul>
+      <p><button type="button" id="btn-limpar" class="btn btn-perigo">Limpar tudo</button></p>
+    </section>
+
+    <!-- Painel didático: o conteúdo bruto (texto JSON) guardado no localStorage -->
+    <section class="cartao" aria-labelledby="t-bruto">
+      <h2 id="t-bruto">O que o localStorage guarda (texto JSON)</h2>
+      <pre id="bruto" class="espelho"></pre>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

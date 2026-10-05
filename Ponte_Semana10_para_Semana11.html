@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Da Semana 10 à Semana 11 — Ponte de Conteúdo</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Da Semana 10 à Semana 11</h1>
+  <p class="subtitle">Conectando o CSS avançado, o DOM e os formulários ao HTML semântico, localStorage, fetch e Browser APIs</p>
+  <p class="meta">
+    Desenvolvimento Front-End [React] T4 | Módulo 1 &nbsp;|&nbsp;
+    Este material não traz conteúdo novo — ele mostra, ponto a ponto, como o que você já praticou nas semanas
+    anteriores (CSS e Flexbox, DOM com JavaScript, formulários, <code>async/await</code> e CSS avançado da S10) é a
+    <b>base literal</b> do que vamos fazer na Semana 11. A ideia é simples:
+    <b>nada aqui é assunto desconhecido, é o mesmo conhecimento crescendo.</b>
+  </p>
+
+  <h3 class="bloco" style="border:none;margin-top:0">Como ler este material</h3>
+  <p>
+    Cada seção segue o mesmo formato: primeiro, <b>o que você já sabe</b> (com o código como ele apareceu nas semanas anteriores);
+    depois, <b>o que a Semana 11 acrescenta</b>; por fim, uma comparação lado a lado entre a versão "de antes" e a "de agora" do mesmo problema.
+  </p>
+
+  <div class="fio"><span class="titulo">O fio condutor: um projeto novo que usa tudo o que você já sabe</span>
+  Nas semanas anteriores você evoluiu a página da Bikcraft. Agora a turma muda de produto e de cliente:
+  o <b>PrevisaoCerta</b>, painel climático da transportadora <b>AgroLog</b>. O problema-âncora é real:
+  <i>os despachantes precisam acompanhar o tempo nas cidades de coleta e entrega — a ferramenta tem que ser
+  acessível, lembrar das rotas e mostrar dados reais.</i> A tabela mostra a linha do tempo.</div>
+
+  <table>
+    <tr><th>Semana</th><th>O que você construiu</th><th>Ferramenta usada</th></tr>
+    <tr><td>06</td><td>Código assíncrono: esperar uma resposta sem travar a página</td><td><code>async</code>/<code>await</code></td></tr>
+    <tr><td>08</td><td>JavaScript mexendo na página</td><td>DOM: <code>getElementById</code>, <code>createElement</code>, <code>classList</code>, <code>textContent</code></td></tr>
+    <tr><td>09</td><td>Formulário completo, captura no <code>submit</code>, confirmação na tela</td><td>Formulários HTML + JavaScript</td></tr>
+    <tr><td>10</td><td>Layout responsivo, Flexbox, especificidade, <code>:focus-visible</code>, variáveis CSS, Grid sem media query</td><td>CSS avançado (e bibliotecas, em teoria)</td></tr>
+    <tr><td>11</td><td>Um painel acessível, com memória e dados reais da internet</td><td><b>Assunto desta semana</b></td></tr>
+  </table>
+
+  <h2 class="conexao pagebreak">CONEXÃO 1 — Do formulário e do foco à acessibilidade de verdade</h2>
+
+  <h3 class="bloco">O que você já sabe (Semanas 09 e 10)</h3>
+  <p>
+    Você já monta um formulário HTML, captura os dados no <code>submit</code> e já usou, na paginação da S10,
+    <code>aria-current="page"</code> e <code>:focus-visible</code> no CSS para o foco por teclado.
+    Ou seja: <b>você já fez acessibilidade sem dar esse nome</b>.
+  </p>
+  <pre><code>&lt;form id="form-contato"&gt;
+  &lt;label for="nome"&gt;Nome&lt;/label&gt;
+  &lt;input type="text" id="nome" name="nome" /&gt;
+  &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;
+
+a:focus-visible { outline: 2px solid var(--destaque); }</code></pre>
+
+  <h3 class="bloco">O que a Semana 11 acrescenta</h3>
+  <ul>
+    <li><b>Landmarks e hierarquia:</b> <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>, um só <code>&lt;h1&gt;</code> — a página inteira, não só o formulário, passa a ser compreensível pela máquina.</li>
+    <li><b>Medir com o Lighthouse:</b> uma nota objetiva de Acessibilidade e SEO <i>antes</i> e <i>depois</i>.</li>
+    <li><b>ARIA e teclado:</b> <code>aria-label</code>, <code>aria-live</code>, skip link, <code>alt</code> decorativo × informativo.</li>
+    <li><b>SEO on-page:</b> <code>&lt;title&gt;</code> e <code>&lt;meta name="description"&gt;</code>.</li>
+  </ul>
+
+  <h3 class="bloco">Comparando o código: o mesmo formulário, antes e depois</h3>
+  <div class="comparacao">
+    <div class="lado">
+      <span class="rotulo-antes">SEMANA 09/10 — funciona e é bonito</span>
+      <div class="caixa-antes"><pre><code>&lt;div class="busca"&gt;
+  Cidade
+  &lt;input type="text"&gt;
+  &lt;div class="btn"&gt;Buscar&lt;/div&gt;
+&lt;/div&gt;</code></pre></div>
+    </div>
+    <div class="lado">
+      <span class="rotulo-depois">SEMANA 11 — a máquina entende</span>
+      <div class="caixa-depois"><pre><code>&lt;form id="form-busca" role="search"&gt;
+  &lt;label for="input-cidade"&gt;Nome da cidade&lt;/label&gt;
+  &lt;input type="search" id="input-cidade" /&gt;
+  &lt;button type="submit"&gt;Buscar&lt;/button&gt;
+&lt;/form&gt;</code></pre></div>
+    </div>
+  </div>
+  <div class="observacao"><span class="titulo">O que realmente mudou?</span>O visual pode ser o mesmo. O que muda é que cada peça agora <b>diz o que é</b>: o leitor de tela anuncia "Nome da cidade, busca" e o botão é um botão de verdade (foco por Tab, Enter e Espaço de graça).</div>
+
+  <h2 class="conexao pagebreak">CONEXÃO 2 — Do DOM e dos arrays à memória do navegador</h2>
+
+  <h3 class="bloco">O que você já sabe (Semana 08)</h3>
+  <p>Você já cria elementos com <code>createElement</code>, usa <code>classList</code> e <code>textContent</code>, seleciona com <code>getElementById</code>/<code>querySelector</code> e percorre listas com <code>forEach</code> e <code>filter</code>. A lista que você desenha na tela vem de um <b>array na memória do JavaScript</b>:</p>
+  <pre><code>const cidades = ['Florianópolis', 'Curitiba'];
+
+function renderizarLista() {
+  lista.innerHTML = '';
+  cidades.forEach(function (nome) {
+    const item = document.createElement('li');
+    item.textContent = nome;
+    lista.appendChild(item);
+  });
+}</code></pre>
+
+  <h3 class="bloco">O que a Semana 11 acrescenta</h3>
+  <ul>
+    <li><b>Persistência:</b> a mesma lista passa a viver no <code>localStorage</code> — sobrevive ao F5 e ao fechar a aba.</li>
+    <li><b>JSON:</b> como o <code>localStorage</code> só guarda texto, o array é convertido com <code>JSON.stringify</code> e reconstruído com <code>JSON.parse</code>.</li>
+    <li><b>O <code>null</code> da primeira visita:</b> quando nada foi salvo, o <code>getItem</code> devolve <code>null</code> — por isso o <code>|| []</code>.</li>
+    <li><b>Timers:</b> <code>setTimeout</code> para um aviso que some sozinho.</li>
+  </ul>
+
+  <h3 class="bloco">Comparando o código: a mesma lista, agora com memória</h3>
+  <div class="comparacao">
+    <div class="lado">
+      <span class="rotulo-antes">SEMANA 08 — some no F5</span>
+      <div class="caixa-antes"><pre><code>const cidades = [];            // memória da página
+
+function adicionar(nome) {
+  cidades.push(nome);
+  renderizarLista();
+}</code></pre></div>
+    </div>
+    <div class="lado">
+      <span class="rotulo-depois">SEMANA 11 — sobrevive ao F5</span>
+      <div class="caixa-depois"><pre><code>function carregarCidades() {
+  return JSON.parse(
+    localStorage.getItem('previsaocerta:cidades')
+  ) || [];
+}
+function adicionar(nome) {
+  const cidades = carregarCidades();
+  cidades.push({ nome: nome });
+  localStorage.setItem('previsaocerta:cidades',
+    JSON.stringify(cidades));
+  renderizarLista();
+}</code></pre></div>
+    </div>
+  </div>
+  <div class="observacao"><span class="titulo">O que realmente mudou?</span><code>renderizarLista()</code> continua exatamente igual. A única diferença é <b>de onde</b> vem o array: da variável (que zera) ou do <code>localStorage</code> (que lembra).</div>
+
+  <h2 class="conexao pagebreak">CONEXÃO 3 — Do async/await e dos eventos aos dados da internet e do relógio</h2>
+
+  <h3 class="bloco">O que você já sabe (Semanas 06 e 08/09)</h3>
+  <p>Você já sabe que algumas coisas <b>demoram</b> e que o <code>await</code> espera sem travar a página. Também já escuta eventos (<code>click</code>, <code>submit</code>) e organiza o código em funções pequenas.</p>
+  <pre><code>async function esperar() {
+  const resultado = await algumaPromessaQueDemora();
+  console.log(resultado);
+}
+form.addEventListener('submit', function (evento) {
+  evento.preventDefault();
+});</code></pre>
+
+  <h3 class="bloco">O que a Semana 11 acrescenta</h3>
+  <ul>
+    <li><b><code>fetch</code>:</b> a "promessa que demora" mais comum do dia a dia — pedir dados a um servidor. <b>Dois</b> <code>await</code>: um para a resposta e outro para o <code>.json()</code>.</li>
+    <li><b>O caminho triste:</b> <code>try/catch</code> para a rede que cai e <code>response.ok</code> para o 404 que finge sucesso. Os <b>3 estados</b>: carregando, sucesso e erro.</li>
+    <li><b>Timers:</b> <code>setTimeout</code> (uma vez, depois de N ms) e <code>setInterval</code> (repete a cada N ms; guarde o id e use <code>clearInterval</code>).</li>
+    <li><b>Geolocation:</b> outra API do navegador, que depende de <b>permissão</b> do usuário — e o app precisa continuar útil se ele recusar.</li>
+  </ul>
+
+  <h3 class="bloco">Comparando o código: da promessa genérica ao fetch real</h3>
+  <div class="comparacao">
+    <div class="lado">
+      <span class="rotulo-antes">SEMANA 06 — conceito</span>
+      <div class="caixa-antes"><pre><code>const resultado =
+  await algumaPromessa();
+console.log(resultado);</code></pre></div>
+    </div>
+    <div class="lado">
+      <span class="rotulo-depois">SEMANA 11 — API real, com erro tratado</span>
+      <div class="caixa-depois"><pre><code>try {
+  const resposta = await fetch(url);
+  if (!resposta.ok) {
+    throw new Error('Status ' + resposta.status);
+  }
+  const dados = await resposta.json();
+  renderizarCard(dados);
+} catch (erro) {
+  mostrarStatus('Não foi possível carregar.', 'erro');
+}</code></pre></div>
+    </div>
+  </div>
+  <div class="observacao"><span class="titulo">O que realmente mudou?</span>O <code>await</code> é o mesmo. A novidade é <b>o que esperar</b> (um servidor de verdade) e a obrigação profissional de <b>cobrir o que dá errado</b>.</div>
+
+  <h2 class="conexao pagebreak">CONEXÃO 4 — Do CSS avançado da S10 à identidade visual do projeto</h2>
+
+  <h3 class="bloco">O que você já sabe (Semana 10)</h3>
+  <p>Você já usa <b>variáveis CSS</b> para guardar a cor da marca num lugar só, <b>mobile-first</b> com <code>min-width</code>, Grid com <code>repeat(auto-fit, minmax(...))</code> sem media query, <code>:focus-visible</code> e a media query <code>prefers-reduced-motion</code>.</p>
+
+  <h3 class="bloco">O que a Semana 11 acrescenta</h3>
+  <p>Todo esse CSS volta no PrevisaoCerta, agora com uma <b>identidade visual</b> definida no documento funcional (paleta verde/âmbar da AgroLog, contraste calculado, foco âmbar) e com os estados de interface (carregando, sucesso, erro) pintados por classes.</p>
+  <table>
+    <tr><th>Aviso/recurso da S10</th><th>Como volta na S11</th></tr>
+    <tr><td>Variáveis CSS (<code>--destaque</code>)</td><td>Tokens da marca: <code>--verde-campo</code>, <code>--verde-folha</code>, <code>--ambar-foco</code>…</td></tr>
+    <tr><td><code>:focus-visible</code></td><td>Anel âmbar de 3px: nunca remover o outline</td></tr>
+    <tr><td>Grid <code>auto-fit</code></td><td>Lista de cidades monitoradas responsiva, sem media query</td></tr>
+    <tr><td><code>prefers-reduced-motion</code></td><td>Transições desligadas para quem pede menos movimento</td></tr>
+    <tr><td>Mobile-first</td><td>Cabeçalho empilhado no celular e em linha a partir de 768px</td></tr>
+  </table>
+
+  <h2 class="conexao">Checklist: você já está pronto para a Semana 11 se...</h2>
+  <ul class="checklist">
+    <li>Sabe montar um formulário HTML com <code>label</code>, <code>input</code> e <code>button</code> e capturar o <code>submit</code> com JavaScript.</li>
+    <li>Sabe criar elementos com <code>createElement</code>, usar <code>classList</code>/<code>textContent</code> e percorrer arrays com <code>forEach</code> e <code>filter</code>.</li>
+    <li>Sabe o que faz <code>await</code> dentro de uma função <code>async</code>.</li>
+    <li>Sabe declarar variáveis CSS e usar <code>:focus-visible</code> e Grid <code>auto-fit</code>.</li>
+    <li>Sabe abrir o DevTools (F12) e olhar as abas Elements e Console.</li>
+    <li>Entende que objeto/array e texto são coisas diferentes (será essencial para o <code>JSON</code>).</li>
+  </ul>
+  <p>
+    Se todos esses pontos fazem sentido, a Semana 11 não vai apresentar nada desconhecido — ela dá nome, número e
+    ferramenta profissional (Lighthouse, Application, Network) para instintos que você já está desenvolvendo desde as semanas anteriores.
+  </p>
+
+  <footer>
+    Desenvolvimento Front-End [React] T4 — SENAI/SC — Material de conexão Semana 10 → Semana 11<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+
+</div>
+</body>
+</html>

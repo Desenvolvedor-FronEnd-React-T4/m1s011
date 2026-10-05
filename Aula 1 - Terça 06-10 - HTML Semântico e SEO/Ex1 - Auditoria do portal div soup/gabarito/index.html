@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- CORREÇÃO 1: lang diz o idioma ao leitor de tela (pronúncia certa) e ao buscador -->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <!-- CORREÇÃO 2: viewport — sem ela o celular encolhe a página e o Lighthouse reclama -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- CORREÇÃO 3 (SEO): <title> = aba do navegador e título do resultado no Google -->
+  <title>Agro em Foco — Notícias do agronegócio</title>
+  <!-- CORREÇÃO 4 (SEO): meta description = resumo exibido abaixo do título na busca -->
+  <meta name="description" content="Notícias do agronegócio, clima e logística de coleta para quem vive do campo.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- CORREÇÃO 5: skip link — o 1º Tab leva direto ao conteúdo (quem usa teclado não repete o menu).
+       A classe .pular está no style.css: fica fora da tela até receber foco. -->
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- CORREÇÃO 6: <div class="cabecalho"> virou <header> (landmark "banner") -->
+  <header class="cabecalho">
+    <!-- CORREÇÃO 7: logo DECORATIVO → alt="" (o nome "Agro em Foco" já está escrito ao lado).
+         alt="imagem" faria o leitor falar "imagem" sem dizer nada útil. -->
+    <img src="img/logo.svg" alt="" width="48" height="48">
+    <!-- CORREÇÃO 8: o 1º <h1> virou <p>. O assunto principal da página é a notícia (UM só h1) -->
+    <p>Agro em Foco</p>
+
+    <!-- CORREÇÃO 9: <div class="menu"> virou <nav> com aria-label; <span> virou <a> (link de verdade:
+         recebe foco no Tab e abre com Enter). href="#" é só placeholder do exercício. -->
+    <nav class="menu" aria-label="Navegação principal">
+      <a href="#">Início</a>
+      <a href="#">Safra</a>
+      <a href="#">Clima</a>
+    </nav>
+  </header>
+
+  <!-- CORREÇÃO 10: <div class="principal"> virou <main> (UM por página).
+       tabindex="-1" permite que o skip link mova o foco para cá. -->
+  <main class="principal" id="conteudo" tabindex="-1">
+
+    <!-- CORREÇÃO 11: <article> = conteúdo independente (a notícia faz sentido sozinha) -->
+    <article>
+      <h1>Chuva forte atrasa a colheita de soja no Sul</h1>
+
+      <!-- CORREÇÃO 12: <figure>/<figcaption> ligam a legenda à imagem -->
+      <figure class="foto">
+        <!-- CORREÇÃO 13: foto INFORMATIVA → o alt descreve o que a imagem mostra -->
+        <img src="img/soja.svg" alt="Lavoura de soja com o sol aparecendo sobre as plantas" width="400" height="200">
+        <figcaption class="legenda">Lavoura de soja em Chapecó (SC)</figcaption>
+      </figure>
+
+      <!-- CORREÇÃO 14: <time datetime> = data legível por máquina; <p> no lugar do <span> solto -->
+      <p>Publicado em <time datetime="2026-10-05">05/10/2026</time></p>
+
+      <p>As chuvas das últimas 72 horas deixaram as máquinas paradas em parte do Sul do país
+      e a previsão indica mais dois dias de instabilidade.</p>
+      <p>Transportadoras já reorganizam rotas de coleta para evitar estradas de terra alagadas.</p>
+    </article>
+
+    <!-- CORREÇÃO 15: bloco temático COM título → <section> + h2 (a hierarquia desce sem pular nível) -->
+    <section aria-labelledby="t-assine">
+      <h2 class="titulo2" id="t-assine">Receba as notícias por e-mail</h2>
+
+      <!-- CORREÇÃO 16: <form> de verdade; <label for> ligado ao id do campo (o leitor anuncia
+           "Seu e-mail"); type="email" valida e abre o teclado certo no celular -->
+      <form onsubmit="event.preventDefault(); alert('Assinado!')">
+        <label for="email">Seu e-mail</label>
+        <input type="email" id="email" name="email" required>
+        <!-- CORREÇÃO 17: <button> real (foco por Tab, Enter/Espaço) no lugar de <div onclick> -->
+        <button type="submit" class="botao">Assinar</button>
+      </form>
+    </section>
+
+    <!-- CORREÇÃO 18: <aside> = complemento; o título vira h2 e as linhas viram <ul>/<li> com links -->
+    <aside aria-labelledby="t-veja">
+      <h2 class="titulo2" id="t-veja">Veja também</h2>
+      <ul>
+        <li><a href="#">Previsão da semana para o Sul</a></li>
+        <li><a href="#">Preço do diesel nas rotas de coleta</a></li>
+      </ul>
+    </aside>
+  </main>
+
+  <!-- CORREÇÃO 19: <div class="rodape"> virou <footer> -->
+  <footer class="rodape">© 2026 Agro em Foco</footer>
+
+</body>
+</html>

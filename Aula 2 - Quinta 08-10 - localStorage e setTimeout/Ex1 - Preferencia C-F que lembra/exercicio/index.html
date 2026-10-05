@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Preferência °C/°F — PrevisaoCerta</title>
+  <meta name="description" content="Exercício de localStorage: lembrar a unidade de temperatura escolhida." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Preferência °C / °F que lembra</h1></header>
+
+  <main class="container">
+    <section class="cartao" aria-labelledby="t-clima">
+      <h2 id="t-clima">Florianópolis agora</h2>
+      <p class="grande" id="temperatura">—</p>
+
+      <fieldset>
+        <legend>Unidade de temperatura</legend>
+        <label><input type="radio" name="unidade" value="celsius" /> °C (Celsius)</label>
+        <label><input type="radio" name="unidade" value="fahrenheit" /> °F (Fahrenheit)</label>
+      </fieldset>
+      <p class="nota">Troque a unidade, dê <strong>F5</strong> e confira se ela continua escolhida.</p>
+    </section>
+
+    <!-- Painel didático: mostra o que está REALMENTE guardado no localStorage -->
+    <section class="cartao" aria-labelledby="t-espelho">
+      <h2 id="t-espelho">Espelho do localStorage</h2>
+      <p class="nota">Compare com <strong>F12 › Application › Local Storage</strong>.</p>
+      <pre id="espelho" class="espelho"></pre>
+      <button type="button" id="btn-apagar" class="btn btn-perigo">Apagar a chave (simular 1ª visita)</button>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

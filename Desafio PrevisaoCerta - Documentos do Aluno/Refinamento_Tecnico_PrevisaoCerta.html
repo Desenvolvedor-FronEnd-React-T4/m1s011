@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Refinamento Técnico — PrevisaoCerta (AgroLog)</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Refinamento Técnico — PrevisaoCerta</h1>
+  <p class="subtitle">Como construir o painel: arquitetura, contratos de dados, API, modelos de código e plano de testes</p>
+  <p class="meta">
+    Desenvolvimento Front-End [React] T4 | Módulo 1 | Semana 11 | Projeto condutor: <b>Desafio PrevisaoCerta</b><br>
+    Leia antes o <b>Documento Funcional</b> (o quê e por quê, com a identidade visual). Aqui está o <b>como</b>.
+    Os arquivos completos estão na pasta <code>modelo-de-arquivos</code>, ao lado deste documento: <b>HTML e CSS prontos</b> (a base visual e semântica) e
+    <b>JavaScript com funções-chave em branco (<code>TODO</code>)</b> para você completar. Cada <code>TODO</code> traz a dica do que fazer.
+  </p>
+
+  <h2 class="section">1. Visão técnica</h2>
+  <table>
+    <tr><th>Item</th><th>Decisão</th></tr>
+    <tr><td>Tecnologias</td><td>HTML5, CSS3 e JavaScript puros (scripts clássicos, sem módulos, sem bibliotecas)</td></tr>
+    <tr><td>Como rodar</td><td>Abrir a pasta no VS Code e usar o <b>Live Server</b> (<code>http://127.0.0.1:5500</code>). Necessário para a Geolocation (contexto seguro)</td></tr>
+    <tr><td>API</td><td>Open-Meteo: Geocoding e Forecast. Sem chave, sem cadastro, CORS liberado</td></tr>
+    <tr><td>Persistência</td><td><code>localStorage</code>, com chaves prefixadas por <code>previsaocerta:</code></td></tr>
+    <tr><td>Padrões</td><td>Mobile-first; <code>textContent</code> em vez de <code>innerHTML</code> para dados de fora; nomes de funções em português; um timer só</td></tr>
+  </table>
+
+  <h2 class="section">2. Estrutura de arquivos</h2>
+  <pre><code>previsaocerta/
+├── index.html            ← estrutura semântica (landmarks, formulário, card, região aria-live)
+├── css/
+│   └── style.css         ← tokens da marca, base mobile-first, componentes, media queries
+├── js/
+│   ├── storage.js        ← "memória": localStorage (cidades, unidade, auto, cache)
+│   ├── api.js            ← "internet": fetch, Geocoding, Forecast, decodificarTempo, formatarTemperatura
+│   ├── ui.js             ← "tela": status, aviso (setTimeout), renderizarLista, renderizarCard
+│   └── app.js            ← "maestro": eventos, fluxo, Geolocation, setInterval, visibilitychange
+└── img/
+    ├── logo-agrolog.svg  ← logo (decorativo, alt="")
+    └── favicon.svg</code></pre>
+  <div class="nota"><span class="titulo">Ordem dos scripts importa</span>No <code>index.html</code>, os <code>&lt;script&gt;</code> entram na ordem <code>storage.js</code> → <code>api.js</code> → <code>ui.js</code> → <code>app.js</code>: cada arquivo usa funções do anterior. O <code>app.js</code> é o único que "executa" algo no carregamento (chama <code>iniciar()</code>).</div>
+
+  <h2 class="section">3. Responsabilidade de cada arquivo (e o que NÃO fazer)</h2>
+  <table>
+    <tr><th>Arquivo</th><th>Faz</th><th>Não faz</th></tr>
+    <tr><td><code>storage.js</code></td><td>Ler e gravar no <code>localStorage</code>; converter JSON; devolver valores padrão</td><td>Não mexe no DOM, não chama <code>fetch</code></td></tr>
+    <tr><td><code>api.js</code></td><td>Montar URLs, chamar <code>fetch</code>, checar <code>response.ok</code>, devolver dados limpos</td><td>Não mexe no DOM, não usa <code>localStorage</code></td></tr>
+    <tr><td><code>ui.js</code></td><td>Desenhar na tela a partir de dados recebidos; status e aviso</td><td>Não busca dados, não grava no storage</td></tr>
+    <tr><td><code>app.js</code></td><td>Ligar eventos e coordenar os três acima; timers; geolocalização</td><td>Não monta HTML na mão (isso é do <code>ui.js</code>)</td></tr>
+  </table>
+
+  <h2 class="section pagebreak">4. Contratos de dados</h2>
+  <h3 class="bloco">4.1 Chaves do localStorage</h3>
+  <table>
+    <tr><th>Chave</th><th>Tipo guardado</th><th>Exemplo de valor (texto)</th><th>Padrão na 1ª visita</th></tr>
+    <tr><td><code>previsaocerta:cidades</code></td><td>Array de objetos (JSON)</td><td><code>[{"nome":"Curitiba","latitude":-25.4284,"longitude":-49.2733}]</code></td><td><code>[]</code> (via <code>|| []</code>)</td></tr>
+    <tr><td><code>previsaocerta:unidade</code></td><td>String</td><td><code>celsius</code> ou <code>fahrenheit</code></td><td><code>'celsius'</code> (via <code>||</code>)</td></tr>
+    <tr><td><code>previsaocerta:auto</code></td><td>String <code>'true'</code>/<code>'false'</code></td><td><code>true</code></td><td><code>false</code></td></tr>
+    <tr><td><code>previsaocerta:cache</code></td><td>Objeto indexado pelo nome da cidade (JSON)</td><td><code>{"Curitiba":{"temperatura":22.4,"codigo":3,"vento":9.1,"hora":"2026-10-09T09:30","salvoEm":1790000000000}}</code></td><td><code>{}</code></td></tr>
+  </table>
+  <div class="atencao"><span class="titulo">Lembrete</span>O <code>localStorage</code> só guarda texto. Objetos e arrays passam por <code>JSON.stringify</code> ao salvar e <code>JSON.parse</code> ao ler. <b>Nunca</b> guarde token, senha ou CPF.</div>
+
+  <h3 class="bloco">4.2 Objetos em memória</h3>
+  <pre><code>// Cidade (guardada na lista)
+{ nome: 'Curitiba', latitude: -25.4284, longitude: -49.2733 }
+
+// Clima (devolvido por buscarClima e guardado no cache)
+{ temperatura: 22.4,        // sempre em °C vindo da API
+  codigo: 3,                // weather_code (padrão WMO)
+  vento: 9.1,               // km/h
+  hora: '2026-10-09T09:30', // hora local da cidade
+  salvoEm: 1790000000000 }  // só no cache: Date.now()</code></pre>
+
+  <h2 class="section">5. A API Open-Meteo</h2>
+  <h3 class="bloco">5.1 Forecast (clima atual)</h3>
+  <pre><code>GET https://api.open-meteo.com/v1/forecast
+    ?latitude=-25.4284
+    &amp;longitude=-49.2733
+    &amp;current=temperature_2m,weather_code,wind_speed_10m
+    &amp;timezone=auto</code></pre>
+  <p>Resposta (resumida): os dados "agora" ficam em <code>current</code>.</p>
+  <pre><code>{
+  "current_units": { "temperature_2m": "°C", "wind_speed_10m": "km/h" },
+  "current": {
+    "time": "2026-10-09T09:30",
+    "temperature_2m": 22.4,
+    "weather_code": 3,
+    "wind_speed_10m": 9.1
+  }
+}</code></pre>
+  <h3 class="bloco">5.2 Geocoding (nome → coordenadas)</h3>
+  <pre><code>GET https://geocoding-api.open-meteo.com/v1/search
+    ?name=S%C3%A3o%20Paulo          ← encodeURIComponent("São Paulo")
+    &amp;count=1&amp;language=pt&amp;format=json</code></pre>
+  <pre><code>{ "results": [ { "name": "São Paulo", "latitude": -23.5475, "longitude": -46.6361, "country": "Brasil" } ] }
+
+// Cidade inexistente → o campo "results" SOME (não vem array vazio):
+{ "generationtime_ms": 0.4 }</code></pre>
+  <div class="atencao"><span class="titulo">Confira na fonte</span>Os exemplos acima mostram o <b>formato</b>; os valores reais mudam. Teste no navegador (cole a URL na barra de endereços) e leia a documentação em <code>open-meteo.com</code>. A fonte da verdade é a API e a documentação — não o palpite da IA.</div>
+
+  <h3 class="bloco">5.3 Códigos de tempo (weather_code, padrão WMO) usados no projeto</h3>
+  <table>
+    <tr><th>Código</th><th>Texto</th><th>Ícone</th><th>Código</th><th>Texto</th><th>Ícone</th></tr>
+    <tr><td>0</td><td>Céu limpo</td><td>☀️</td><td>61</td><td>Chuva fraca</td><td>🌧️</td></tr>
+    <tr><td>1</td><td>Predominantemente limpo</td><td>🌤️</td><td>63</td><td>Chuva moderada</td><td>🌧️</td></tr>
+    <tr><td>2</td><td>Parcialmente nublado</td><td>⛅</td><td>65</td><td>Chuva forte</td><td>🌧️</td></tr>
+    <tr><td>3</td><td>Nublado</td><td>☁️</td><td>80</td><td>Pancadas de chuva fracas</td><td>🌦️</td></tr>
+    <tr><td>45</td><td>Nevoeiro</td><td>🌫️</td><td>81 / 82</td><td>Pancadas moderadas / fortes</td><td>🌧️ / ⛈️</td></tr>
+    <tr><td>51 / 53 / 55</td><td>Garoa fraca / moderada / intensa</td><td>🌦️</td><td>95</td><td>Trovoada</td><td>⛈️</td></tr>
+    <tr><td colspan="6">Qualquer outro código → <code>{ texto: 'Condição desconhecida', icone: '❓' }</code> (nunca deixar quebrar)</td></tr>
+  </table>
+
+  <h2 class="section pagebreak">6. Fluxos principais</h2>
+  <h3 class="bloco">6.1 Ver o clima de uma cidade</h3>
+  <pre><code>clique em "Ver clima" ──► selecionarCidade(cidade)
+      └─► carregarClima(cidade, forcar=false)
+            ├─ cache fresco (&lt; 10 min)?  ──► atualizarTela()              (sem rede)
+            └─ não: mostrarStatus('Carregando…','carregando')
+                    try { buscarClima() → salvarNoCache() → mostrarStatus('…atualizado','sucesso') → atualizarTela() }
+                    catch { há cache antigo? → mostra com aviso "Sem conexão…"
+                            senão → mostrarStatus('Não foi possível carregar…','erro') }</code></pre>
+  <h3 class="bloco">6.2 Buscar por nome (⭐)</h3>
+  <pre><code>submit do formulário ──► preventDefault() ──► nome vazio? → erro + foco no campo
+      └─► buscarCoordenadas(nome)            (Geocoding)
+            ├─ null → "Cidade não encontrada" (erro)
+            └─ { nome, latitude, longitude } ──► adicionarCidade() ──► carregarClima()</code></pre>
+  <h3 class="bloco">6.3 Atualização automática (⭐)</h3>
+  <pre><code>marcar "Atualizar a cada 10 minutos" ──► iniciarAtualizacao()
+      ├─ pararAtualizacao()                      ← nunca 2 timers vivos
+      └─ timerAtualizacao = setInterval(atualizarTudo, 10 * MINUTO)
+aba oculta (visibilitychange) ──► pararAtualizacao()      aba visível ──► atualizarTudo() + iniciarAtualizacao()</code></pre>
+
+  <h2 class="section">7. Tratamento do "caminho triste"</h2>
+  <table>
+    <tr><th>O que pode dar errado</th><th>Como acontece</th><th>Como tratar</th></tr>
+    <tr><td>1ª visita: chave inexistente</td><td><code>getItem</code> → <code>null</code>; <code>JSON.parse(null)</code> → <code>null</code>; <code>forEach</code> quebra</td><td><code>JSON.parse(...) || []</code></td></tr>
+    <tr><td>JSON corrompido no storage</td><td><code>JSON.parse</code> lança <code>SyntaxError</code></td><td><code>try/catch</code> devolvendo o valor padrão</td></tr>
+    <tr><td>Cota cheia ou storage bloqueado</td><td><code>setItem</code> lança erro</td><td><code>try/catch</code> e retorno <code>true/false</code></td></tr>
+    <tr><td>Rede caída</td><td>O <code>fetch</code> rejeita</td><td><code>try/catch</code> + mensagem acessível</td></tr>
+    <tr><td>Servidor responde 404/500</td><td>O <code>fetch</code> <b>não</b> rejeita; <code>response.ok</code> é <code>false</code></td><td><code>if (!resposta.ok) throw new Error(...)</code></td></tr>
+    <tr><td>Servidor lento</td><td>"Carregando…" para sempre</td><td><code>AbortController</code> + <code>setTimeout</code> de 8 s; <code>AbortError</code> vira "demorou demais"</td></tr>
+    <tr><td>Cidade inexistente</td><td>Geocoding sem o campo <code>results</code></td><td><code>if (!dados.results || dados.results.length === 0) return null</code></td></tr>
+    <tr><td>Código de tempo desconhecido</td><td><code>mapa[code]</code> é <code>undefined</code></td><td><code>mapa[code] || { texto: 'Condição desconhecida', icone: '❓' }</code></td></tr>
+    <tr><td>Geolocalização negada/indisponível</td><td>Callback de erro; ou <code>navigator.geolocation</code> inexistente</td><td>Avisar e focar o campo de busca (fallback)</td></tr>
+    <tr><td>Timers acumulados</td><td><code>setInterval</code> criado várias vezes sem guardar o id</td><td>Guardar o id; <code>clearInterval</code> antes de criar outro</td></tr>
+  </table>
+
+  <h2 class="section pagebreak">8. Modelos de código (arquivos da pasta <code>modelo-de-arquivos</code>)</h2>
+  <p>Abaixo, o conteúdo integral dos arquivos-modelo. <b>HTML e CSS</b> já estão prontos para você ler, entender e adaptar. Nos arquivos <b>JavaScript</b>, procure os <code>TODO</code>: cada um é uma função para você escrever. Funções já prontas servem de exemplo de estilo.</p>
+<h3 class="bloco">index.html</h3>
+<p>Estrutura semântica pronta: landmarks, skip link, formulário com <code>label for</code>, região <code>aria-live</code>, card com <code>dl</code>/<code>time</code>, <code>aside</code> da atualização automática e os scripts na ordem certa.</p>
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;!-- lang="pt-BR": diz ao leitor de tela e ao buscador qual é o idioma da página --&gt;
+&lt;html lang="pt-BR"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8" /&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1" /&gt;
+
+  &lt;!-- SEO on-page: título da aba/resultado do Google + resumo exibido na busca --&gt;
+  &lt;title&gt;PrevisaoCerta — Painel climático da AgroLog&lt;/title&gt;
+  &lt;meta name="description" content="Painel operacional da AgroLog para acompanhar o clima nas cidades de coleta e entrega." /&gt;
+
+  &lt;!-- Open Graph: prévia ao compartilhar o link --&gt;
+  &lt;meta property="og:title" content="PrevisaoCerta — AgroLog" /&gt;
+  &lt;meta property="og:description" content="Clima das cidades de coleta e entrega da AgroLog." /&gt;
+
+  &lt;link rel="icon" href="img/favicon.svg" type="image/svg+xml" /&gt;
+  &lt;link rel="stylesheet" href="css/style.css" /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Skip link: primeiro elemento focável da página (teclado) --&gt;
+  &lt;a class="pular" href="#conteudo"&gt;Pular para o conteúdo&lt;/a&gt;
+
+  &lt;!-- LANDMARK 1: header --&gt;
+  &lt;header class="cabecalho"&gt;
+    &lt;div class="container cabecalho-interno"&gt;
+      &lt;div class="marca"&gt;
+        &lt;!-- Logo decorativo: alt="" (o nome AgroLog já está escrito ao lado) --&gt;
+        &lt;img src="img/logo-agrolog.svg" alt="" width="48" height="48" /&gt;
+        &lt;div&gt;
+          &lt;p class="marca-nome"&gt;AgroLog · PrevisaoCerta&lt;/p&gt;
+          &lt;!-- UM só h1 na página --&gt;
+          &lt;h1&gt;Clima das cidades de coleta e entrega&lt;/h1&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+      &lt;!-- LANDMARK 2: nav (com rótulo, para diferenciar de outras navegações) --&gt;
+      &lt;nav aria-label="Navegação principal"&gt;
+        &lt;div class="menu"&gt;
+          &lt;a href="#buscar"&gt;Buscar&lt;/a&gt;
+          &lt;a href="#monitoradas"&gt;Cidades&lt;/a&gt;
+          &lt;a href="#detalhe"&gt;Clima atual&lt;/a&gt;
+        &lt;/div&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/header&gt;
+
+  &lt;!-- LANDMARK 3: main (UM só por página; tabindex="-1" deixa o skip link mover o foco para cá) --&gt;
+  &lt;main id="conteudo" class="container" tabindex="-1"&gt;
+
+    &lt;!-- Região viva: o leitor de tela ANUNCIA o que o JavaScript escrever aqui.
+         Precisa existir no HTML ANTES da mudança. [hidden] = vazia/escondida. --&gt;
+    &lt;p id="status" class="status" role="status" aria-live="polite" hidden&gt;&lt;/p&gt;
+
+    &lt;div class="layout"&gt;
+      &lt;div&gt;
+        &lt;!-- SEÇÃO: buscar cidade (h2 liga o título à seção por aria-labelledby) --&gt;
+        &lt;section id="buscar" class="secao" aria-labelledby="t-buscar"&gt;
+          &lt;h2 id="t-buscar"&gt;Buscar cidade&lt;/h2&gt;
+
+          &lt;!-- role="search" marca o formulário como busca (landmark) --&gt;
+          &lt;form id="form-busca" class="form-busca" role="search"&gt;
+            &lt;!-- label for="..." liga o rótulo ao campo pelo id --&gt;
+            &lt;label for="input-cidade"&gt;Nome da cidade&lt;/label&gt;
+            &lt;div class="campo-linha"&gt;
+              &lt;input type="search" id="input-cidade" name="cidade" autocomplete="off" required /&gt;
+              &lt;button type="submit" id="btn-buscar" class="btn"&gt;Buscar&lt;/button&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+
+          &lt;button type="button" id="btn-localizacao" class="btn btn-secundario" style="margin-top:12px"&gt;
+            Usar minha localização
+          &lt;/button&gt;
+
+          &lt;!-- Sugestões com coordenadas fixas (caminho-base: sem Geocoding) --&gt;
+          &lt;div class="sugestoes" role="group" aria-label="Cidades sugeridas"&gt;
+            &lt;button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Florianópolis" data-lat="-27.5954" data-lon="-48.5480"&gt;Florianópolis&lt;/button&gt;
+            &lt;button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Curitiba" data-lat="-25.4284" data-lon="-49.2733"&gt;Curitiba&lt;/button&gt;
+            &lt;button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Porto Alegre" data-lat="-30.0346" data-lon="-51.2177"&gt;Porto Alegre&lt;/button&gt;
+            &lt;button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Chapecó" data-lat="-27.1004" data-lon="-52.6152"&gt;Chapecó&lt;/button&gt;
+          &lt;/div&gt;
+
+          &lt;!-- Preferência °C/°F (persistida no localStorage) --&gt;
+          &lt;fieldset&gt;
+            &lt;legend&gt;Unidade de temperatura&lt;/legend&gt;
+            &lt;label class="opcao"&gt;&lt;input type="radio" name="unidade" value="celsius" checked /&gt; °C&lt;/label&gt;
+            &lt;label class="opcao"&gt;&lt;input type="radio" name="unidade" value="fahrenheit" /&gt; °F&lt;/label&gt;
+          &lt;/fieldset&gt;
+        &lt;/section&gt;
+
+        &lt;!-- SEÇÃO: cidades monitoradas --&gt;
+        &lt;section id="monitoradas" class="secao" aria-labelledby="t-monitoradas"&gt;
+          &lt;h2 id="t-monitoradas"&gt;Cidades monitoradas&lt;/h2&gt;
+          &lt;p id="msg-vazio" class="vazio"&gt;Nenhuma cidade monitorada ainda. Busque uma cidade ou use as sugestões.&lt;/p&gt;
+          &lt;!-- Lista de verdade: o leitor de tela anuncia "lista com N itens" --&gt;
+          &lt;ul id="lista-cidades" class="lista-cidades"&gt;&lt;/ul&gt;
+          &lt;p style="margin-top:12px"&gt;
+            &lt;button type="button" id="btn-limpar" class="btn btn-perigo"&gt;Limpar tudo&lt;/button&gt;
+          &lt;/p&gt;
+        &lt;/section&gt;
+      &lt;/div&gt;
+
+      &lt;div&gt;
+        &lt;!-- ARTICLE: conteúdo independente (o card faz sentido sozinho) --&gt;
+        &lt;section id="detalhe" class="secao" aria-labelledby="t-detalhe"&gt;
+          &lt;h2 id="t-detalhe"&gt;Clima atual&lt;/h2&gt;
+          &lt;article id="card-clima" class="card-clima"&gt;
+            &lt;h3 class="card-cidade"&gt;Selecione uma cidade&lt;/h3&gt;
+            &lt;dl&gt;
+              &lt;div&gt;
+                &lt;dt&gt;Temperatura&lt;/dt&gt;
+                &lt;dd class="card-temp"&gt;—&lt;/dd&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;dt&gt;Condição&lt;/dt&gt;
+                &lt;dd class="card-desc"&gt;—&lt;/dd&gt;
+              &lt;/div&gt;
+              &lt;div&gt;
+                &lt;dt&gt;Atualizado às&lt;/dt&gt;
+                &lt;dd&gt;&lt;time class="card-hora"&gt;—&lt;/time&gt;&lt;/dd&gt;
+              &lt;/div&gt;
+            &lt;/dl&gt;
+          &lt;/article&gt;
+        &lt;/section&gt;
+
+        &lt;!-- ASIDE: complemento (atualização automática com setInterval) --&gt;
+        &lt;aside class="secao" aria-labelledby="t-auto"&gt;
+          &lt;h2 id="t-auto"&gt;Atualização automática&lt;/h2&gt;
+          &lt;label class="auto-linha" for="chk-auto"&gt;
+            &lt;input type="checkbox" id="chk-auto" /&gt;
+            Atualizar a cada 10 minutos
+          &lt;/label&gt;
+          &lt;p id="ultima-atualizacao" class="nota"&gt;Ainda não atualizado.&lt;/p&gt;
+        &lt;/aside&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/main&gt;
+
+  &lt;!-- LANDMARK 4: footer --&gt;
+  &lt;footer class="rodape"&gt;
+    &lt;div class="container"&gt;
+      &lt;p&gt;PrevisaoCerta — painel climático operacional da AgroLog. Dados: &lt;a href="https://open-meteo.com/"&gt;Open-Meteo&lt;/a&gt;.&lt;/p&gt;
+    &lt;/div&gt;
+  &lt;/footer&gt;
+
+  &lt;!-- Ordem importa: cada arquivo usa funções do anterior --&gt;
+  &lt;script src="js/storage.js"&gt;&lt;/script&gt;
+  &lt;script src="js/api.js"&gt;&lt;/script&gt;
+  &lt;script src="js/ui.js"&gt;&lt;/script&gt;
+  &lt;script src="js/app.js"&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h3 class="bloco">css/style.css</h3>
+<p>Tokens da identidade visual (<code>:root</code>), reset, foco visível, skip link, componentes, estados de status, Grid responsivo e media queries mobile-first.</p>
+<pre><code>/* ==========================================================================
+   PrevisaoCerta — AgroLog | Folha de estilo (GABARITO)
+   Mobile-first: o CSS base vale para o celular; media queries ACRESCENTAM.
+   ========================================================================== */
+
+/* 1. TOKENS DA IDENTIDADE VISUAL --------------------------------------------
+   Todas as cores moram aqui. Contrastes (WCAG AA exige 4,5:1 para texto):
+   branco sobre --verde-folha = 5,1:1 · branco sobre --verde-campo = 7,9:1
+   grafite sobre --fundo = ~15:1 · --texto-suave sobre --fundo = 5,2:1       */
+:root {
+  --verde-campo: #1b5e20;   /* cabeçalho, títulos */
+  --verde-folha: #2e7d32;   /* botões principais */
+  --verde-claro: #e8f5e9;   /* superfícies de destaque */
+  --ambar-foco: #ffb300;    /* anel de foco e detalhes (nunca como cor de texto) */
+  --grafite: #212121;       /* texto principal */
+  --texto-suave: #5f6b61;   /* texto secundário */
+  --fundo: #f4f7f2;         /* fundo da página */
+  --superficie: #ffffff;    /* cartões */
+  --borda: #cfd8cc;
+  --erro: #b71c1c;
+  --erro-fundo: #fdecea;
+  --info: #0d47a1;
+  --info-fundo: #e3f0fd;
+  --raio: 10px;
+  --espaco: 16px;
+  --fonte: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 2. RESET E BASE ---------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  color: var(--grafite);
+  background: var(--fundo);
+  line-height: 1.5;
+}
+
+img { max-width: 100%; height: auto; }
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--espaco);
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 8px; }
+h1 { font-size: clamp(1.4rem, 5vw, 2rem); }
+h2 { font-size: 1.3rem; color: var(--verde-campo); }
+h3 { font-size: 1.1rem; }
+
+/* 3. ACESSIBILIDADE ---------------------------------------------------------
+   NUNCA remover o outline: quem navega por teclado precisa ver o foco.        */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--ambar-foco);
+  outline-offset: 2px;
+}
+
+/* Skip link: invisível até receber foco pelo teclado */
+.pular {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: var(--grafite);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: var(--raio);
+  z-index: 10;
+}
+.pular:focus { left: 8px; }
+
+/* Texto só para leitor de tela */
+.so-leitor {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 4. CABEÇALHO E RODAPÉ ----------------------------------------------------- */
+.cabecalho {
+  background: var(--verde-campo);
+  color: #fff;
+  padding: 14px 0;
+}
+.cabecalho-interno {
+  display: flex;
+  flex-direction: column;       /* celular: empilhado */
+  gap: 12px;
+}
+.marca { display: flex; align-items: center; gap: 12px; }
+.marca-nome { margin: 0; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.cabecalho h1 { margin: 0; }
+
+.menu { display: flex; gap: 16px; flex-wrap: wrap; }
+.menu a { color: #fff; padding: 6px 2px; }
+
+.rodape {
+  margin-top: 32px;
+  padding: 20px 0;
+  background: var(--grafite);
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+/* 5. CARTÕES E FORMULÁRIOS --------------------------------------------------- */
+main { padding-top: 20px; }
+
+.secao {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+  margin-bottom: var(--espaco);
+}
+
+.form-busca { display: flex; flex-direction: column; gap: 8px; }
+.form-busca label { font-weight: 600; }
+.campo-linha { display: flex; flex-direction: column; gap: 8px; }
+
+input[type="search"] {
+  font: inherit;
+  padding: 10px 12px;
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  min-height: 44px;                 /* alvo de toque confortável */
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 2px solid var(--verde-folha);
+  border-radius: var(--raio);
+  background: var(--verde-folha);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;   /* transition no estado BASE */
+}
+.btn:hover { background: var(--verde-campo); }
+.btn:active { transform: scale(0.98); }
+.btn-secundario { background: var(--superficie); color: var(--verde-campo); }
+.btn-secundario:hover { background: var(--verde-claro); }
+.btn-perigo { border-color: var(--erro); background: var(--superficie); color: var(--erro); }
+.btn-perigo:hover { background: var(--erro-fundo); }
+
+fieldset { border: 1px solid var(--borda); border-radius: var(--raio); padding: 8px 12px; margin: 12px 0 0; }
+legend { font-weight: 600; padding: 0 6px; }
+.opcao { display: inline-flex; align-items: center; gap: 6px; margin-right: 16px; min-height: 44px; }
+
+.sugestoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+/* 6. STATUS: os 3 estados (carregando / sucesso / erro) ------------------------ */
+.status {
+  margin: 0 0 var(--espaco);
+  padding: 12px 14px;
+  border-radius: var(--raio);
+  border-left: 6px solid var(--info);
+  background: var(--info-fundo);
+  color: var(--info);
+}
+.status[hidden] { display: none; }
+.status.sucesso { border-color: var(--verde-folha); background: var(--verde-claro); color: var(--verde-campo); }
+.status.erro { border-color: var(--erro); background: var(--erro-fundo); color: var(--erro); }
+/* cor + borda + texto: a informação nunca depende só da cor */
+
+/* 7. LISTA DE CIDADES --------------------------------------------------------- */
+.lista-cidades {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));   /* Grid responsivo sem media query */
+  gap: 12px;
+}
+.cidade-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--fundo);
+}
+.cidade-item.ativa { border-color: var(--verde-folha); background: var(--verde-claro); }
+.cidade-nome { font-weight: 700; }
+.cidade-mini { color: var(--texto-suave); }
+.cidade-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.vazio { color: var(--texto-suave); margin: 0; }
+
+/* 8. CARD DE CLIMA ------------------------------------------------------------ */
+.card-clima dl { margin: 0; display: grid; grid-template-columns: 1fr; gap: 4px 16px; }
+.card-clima dt { color: var(--texto-suave); font-size: 0.85rem; }
+.card-clima dd { margin: 0 0 8px; font-size: 1.1rem; font-weight: 600; }
+.card-temp { font-size: 2.4rem; font-weight: 700; color: var(--verde-campo); }
+.card-icone { font-size: 2rem; }
+
+.auto-linha { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.nota { color: var(--texto-suave); font-size: 0.9rem; margin: 4px 0 0; }
+
+/* 9. TABLET E DESKTOP: ACRESCENTA (mobile-first) ---------------------------------- */
+@media (min-width: 48em) {                      /* 768px */
+  .cabecalho-interno { flex-direction: row; align-items: center; justify-content: space-between; }
+  .campo-linha { flex-direction: row; align-items: stretch; }
+  .campo-linha input { flex: 1; }
+  .card-clima dl { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 64em) {                      /* 1024px */
+  .layout { display: grid; grid-template-columns: 2fr 1fr; gap: var(--espaco); align-items: start; }
+}
+
+/* 10. PREFERÊNCIAS DO USUÁRIO ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}</code></pre>
+<h3 class="bloco">js/storage.js</h3>
+<p>A "memória" do painel. Escreva as funções marcadas com <code>TODO</code> (cidades, unidade, cache). Dica: <code>JSON.parse(...) || []</code> e <code>try/catch</code>.</p>
+<pre><code>/* ==========================================================================
+   storage.js — a "memória" do painel (localStorage)  | Aula de quinta (08/10)
+   Regras de ouro:
+   1) o localStorage só guarda STRING → JSON.stringify ao salvar, JSON.parse ao ler
+   2) na 1ª visita a chave não existe → getItem devolve null → use "|| []"
+   3) nunca guardar token, senha ou CPF aqui (qualquer um lê no DevTools)
+   ========================================================================== */
+
+// Prefixo "previsaocerta:" evita colisão com outras chaves do mesmo site
+const CHAVE_CIDADES = 'previsaocerta:cidades';
+const CHAVE_UNIDADE = 'previsaocerta:unidade';
+const CHAVE_CACHE = 'previsaocerta:cache';
+const CHAVE_AUTO = 'previsaocerta:auto';
+
+/* ---------- Cidades monitoradas (array de objetos) ---------- */
+
+function carregarCidades() {
+  // TODO: ler a chave CHAVE_CIDADES com getItem, converter com JSON.parse e devolver [] na 1ª visita (JSON.parse(null) é null!). Use try/catch para JSON corrompido.
+}
+
+function salvarCidades(cidades) {
+  // TODO: gravar com setItem + JSON.stringify; devolver true/false (try/catch: cota cheia ou armazenamento bloqueado).
+}
+
+// Devolve false se a cidade já estava na lista (evita duplicata)
+function adicionarCidade(cidade) {
+  // TODO: carregar a lista, impedir duplicata (nome sem diferenciar maiúsculas) com some(), dar push e salvar. Devolva false se já existia.
+}
+
+function removerCidade(nome) {
+  // TODO: usar filter para manter todas as cidades menos a removida e salvar o resultado.
+}
+
+function limparTudo() {
+  // TODO: removeItem das chaves de cidades e de cache (NÃO use localStorage.clear()).
+}
+
+/* ---------- Preferência de unidade (string simples) ---------- */
+
+function carregarUnidade() {
+  // TODO: devolver o valor salvo em CHAVE_UNIDADE ou 'celsius' quando não houver nada (||).
+}
+
+function salvarUnidade(unidade) {
+  // TODO: gravar a unidade com setItem (dentro de try/catch).
+}
+
+/* ---------- Atualização automática ligada/desligada ---------- */
+
+function carregarAuto() {
+  try {
+    return localStorage.getItem(CHAVE_AUTO) === 'true';
+  } catch (erro) {
+    return false;
+  }
+}
+
+function salvarAuto(ligado) {
+  try {
+    localStorage.setItem(CHAVE_AUTO, String(ligado));
+  } catch (erro) {
+    /* ignora */
+  }
+}
+
+/* ---------- Cache da última resposta da API (objeto indexado por cidade) ---------- */
+
+function lerCache() {
+  // TODO: ler o objeto de cache (JSON.parse(...) || {}) com try/catch.
+}
+
+function salvarNoCache(nome, dado) {
+  // TODO: guardar o dado indexado pelo nome da cidade com o carimbo salvoEm: Date.now().
+}
+
+// Fresco = salvo há menos de "limiteMs" milissegundos
+function cacheFresco(entrada, limiteMs) {
+  return Boolean(entrada) &amp;&amp; Date.now() - entrada.salvoEm &lt; limiteMs;
+}</code></pre>
+<h3 class="bloco">js/api.js</h3>
+<p>A "internet" do painel. Complete <code>buscarJSON</code> (tempo limite + <code>response.ok</code>), <code>buscarCoordenadas</code>, <code>buscarClima</code> e <code>decodificarTempo</code>. <code>formatarTemperatura</code> já vem pronta.</p>
+<pre><code>/* ==========================================================================
+   api.js — conversa com a internet (fetch)  | Aula de sexta (09/10)
+   API: Open-Meteo (pública, sem chave) — https://open-meteo.com/
+   Duas chamadas encadeadas: Geocoding (nome → lat/long) → Forecast (lat/long → clima)
+   ========================================================================== */
+
+const URL_GEOCODING = 'https://geocoding-api.open-meteo.com/v1/search';
+const URL_FORECAST = 'https://api.open-meteo.com/v1/forecast';
+const LIMITE_MS = 8000;   // tempo máximo de espera por requisição (8 s)
+
+/* Faz um fetch com TEMPO LIMITE: sem isso, rede lenta = "Carregando…" para sempre.
+   AbortController cancela o fetch; setTimeout dispara o cancelamento. */
+async function buscarJSON(url) {
+  // TODO: criar AbortController + setTimeout(LIMITE_MS) para abortar; await fetch(url, { signal }); se !resposta.ok lançar Error; devolver await resposta.json(); clearTimeout no finally.
+}
+
+/* ⭐ Geocoding: "Florianópolis" → { nome, latitude, longitude } (ou null) */
+async function buscarCoordenadas(nome) {
+  // TODO: montar a URL do Geocoding com encodeURIComponent(nome); se não existir dados.results (ou vier vazio) devolver null; senão devolver { nome, latitude, longitude } do 1º resultado.
+}
+
+/* Forecast: lat/long → clima atual { temperatura (°C), codigo, vento, hora } */
+async function buscarClima(latitude, longitude) {
+  // TODO: montar a URL do Forecast (current=temperature_2m,weather_code,wind_speed_10m&amp;timezone=auto) e devolver { temperatura, codigo, vento, hora } a partir de dados.current.
+}
+
+/* weather_code (WMO) → texto em pt-BR + emoji */
+function decodificarTempo(code) {
+  // TODO: mapa { código: { texto, icone } } com os códigos WMO do documento funcional; devolver mapa[code] || { texto: 'Condição desconhecida', icone: '❓' }.
+}
+
+/* A API devolve °C; a conversão para °F é feita aqui (sem novo fetch) */
+function formatarTemperatura(celsius, unidade) {
+  if (unidade === 'fahrenheit') {
+    return Math.round(celsius * 9 / 5 + 32) + '°F';
+  }
+  return Math.round(celsius) + '°C';
+}</code></pre>
+<h3 class="bloco">js/ui.js</h3>
+<p>A "tela" do painel. Complete <code>mostrarAviso</code> (<code>setTimeout</code>), <code>renderizarLista</code> e <code>renderizarCard</code>. As funções de status e <code>limparCard</code> já vêm prontas.</p>
+<pre><code>/* ==========================================================================
+   ui.js — desenha na tela (DOM)  | usa createElement, classList, textContent (S08)
+   Nada aqui busca dados nem salva: só recebe informação e mostra.
+   ========================================================================== */
+
+const elStatus = document.getElementById('status');
+let timerAviso = null;   // id do setTimeout do aviso (para poder cancelar)
+
+/* ---------- Os 3 estados: carregando / sucesso / erro ---------- */
+
+// tipo: 'carregando' | 'sucesso' | 'erro'
+function mostrarStatus(texto, tipo) {
+  clearTimeout(timerAviso);                 // cancela um aviso anterior que ainda ia sumir
+  elStatus.className = 'status ' + tipo;
+  elStatus.textContent = texto;             // a região aria-live anuncia a mudança
+  elStatus.hidden = false;
+}
+
+function esconderStatus() {
+  clearTimeout(timerAviso);
+  elStatus.hidden = true;
+  elStatus.textContent = '';
+}
+
+/* Aviso de sucesso que SOME sozinho depois de 3 s (setTimeout).
+   Erros NÃO usam esta função: mensagem de erro não deve desaparecer sozinha. */
+function mostrarAviso(texto) {
+  // TODO: mostrar o texto com mostrarStatus(texto, "sucesso") e agendar com setTimeout (3000 ms) a chamada de esconderStatus; guardar o id em timerAviso.
+}
+
+/* ---------- Lista de cidades ---------- */
+
+function formatarHora(iso) {
+  // "2026-10-09T09:30" → "09:30" (a API já devolve a hora local da cidade)
+  return iso ? iso.slice(11, 16) : '—';
+}
+
+/* Redesenha a &lt;ul&gt; inteira a partir do array (a "verdade" está no localStorage). */
+function renderizarLista(cidades, ativa, unidade, cache, aoSelecionar, aoRemover) {
+  // TODO: limpar a &lt;ul&gt;; para cada cidade criar &lt;li&gt; com nome, resumo do cache, botão "Ver clima" e botão "Remover" (com aria-label); use createElement/classList/textContent/addEventListener.
+}
+
+/* ---------- Card de clima ---------- */
+
+function renderizarCard(dado, unidade) {
+  // TODO: preencher .card-cidade, .card-temp, .card-desc e o &lt;time&gt; (textContent + datetime) a partir de dado e unidade.
+}
+
+function limparCard() {
+  const card = document.getElementById('card-clima');
+  card.querySelector('.card-cidade').textContent = 'Selecione uma cidade';
+  card.querySelector('.card-temp').textContent = '—';
+  card.querySelector('.card-desc').textContent = '—';
+  const hora = card.querySelector('.card-hora');
+  hora.textContent = '—';
+  hora.removeAttribute('datetime');
+}</code></pre>
+<h3 class="bloco">js/app.js</h3>
+<p>O "maestro". Complete <code>carregarClima</code>, <code>usarMinhaLocalizacao</code>, <code>atualizarTudo</code> e <code>iniciarAtualizacao</code>. Eventos, <code>visibilitychange</code> e a inicialização já vêm prontos.</p>
+<pre><code>/* ==========================================================================
+   app.js — o "maestro": liga eventos, storage, API e tela
+   Fluxo: evento → (storage/api) → renderizar
+   ========================================================================== */
+
+const MINUTO = 60 * 1000;
+const VALIDADE_CACHE = 10 * MINUTO;   // dado com menos de 10 min é considerado fresco
+
+let cidadeAtual = null;               // objeto { nome, latitude, longitude } selecionado
+let unidade = carregarUnidade();      // 'celsius' | 'fahrenheit' (vem do localStorage)
+let timerAtualizacao = null;          // id do setInterval (nunca criar 2!)
+
+/* ------------------------------------------------------------------
+   Mensagem amigável a partir do erro (o usuário não precisa ver stack)
+   ------------------------------------------------------------------ */
+function mensagemDeErro(erro) {
+  if (erro &amp;&amp; erro.name === 'AbortError') {
+    return 'A busca demorou demais. Tente de novo.';
+  }
+  return 'Não foi possível carregar. Tente de novo.';
+}
+
+/* ------------------------------------------------------------------
+   Redesenha lista + card a partir do que está salvo
+   ------------------------------------------------------------------ */
+function atualizarTela() {
+  const cidades = carregarCidades();
+  const cache = lerCache();
+  renderizarLista(
+    cidades,
+    cidadeAtual &amp;&amp; cidadeAtual.nome,
+    unidade,
+    cache,
+    selecionarCidade,
+    excluirCidade
+  );
+
+  const dado = cidadeAtual &amp;&amp; cache[cidadeAtual.nome];
+  if (dado) {
+    renderizarCard({ nome: cidadeAtual.nome, ...dado }, unidade);
+  } else {
+    limparCard();
+  }
+}
+
+/* ------------------------------------------------------------------
+   Busca o clima de UMA cidade com os 3 estados + cache + fallback offline
+   ------------------------------------------------------------------ */
+async function carregarClima(cidade, forcar) {
+  // TODO: usar cache fresco quando possível; senão mostrar "Carregando…", buscarClima, salvarNoCache e "sucesso"; no catch mostrar erro amigável (ou o dado em cache com aviso de "sem conexão").
+}
+
+/* ------------------------------------------------------------------
+   Ações do usuário
+   ------------------------------------------------------------------ */
+function selecionarCidade(cidade) {
+  cidadeAtual = cidade;
+  carregarClima(cidade, false);
+}
+
+function excluirCidade(cidade) {
+  removerCidade(cidade.nome);
+  if (cidadeAtual &amp;&amp; cidadeAtual.nome === cidade.nome) {
+    cidadeAtual = null;
+  }
+  atualizarTela();
+  mostrarAviso(cidade.nome + ' removida.');
+}
+
+// Adiciona à lista e já mostra o clima
+function adicionarEMostrar(cidade) {
+  const salvou = adicionarCidade(cidade);
+  cidadeAtual = cidade;
+  if (salvou) {
+    atualizarTela();                                // mostra a cidade na lista já
+  }
+  carregarClima(cidade, false);
+}
+
+/* ⭐ Busca por nome: Geocoding → Forecast */
+async function aoBuscar(evento) {
+  evento.preventDefault();                          // não recarregar a página
+  const campo = document.getElementById('input-cidade');
+  const nome = campo.value.trim();
+  if (nome === '') {
+    mostrarStatus('Digite o nome de uma cidade.', 'erro');
+    campo.focus();
+    return;
+  }
+
+  mostrarStatus('Procurando "' + nome + '"…', 'carregando');
+  try {
+    const cidade = await buscarCoordenadas(nome);
+    if (cidade === null) {
+      mostrarStatus('Cidade "' + nome + '" não encontrada. Confira a grafia.', 'erro');
+      campo.focus();
+      return;
+    }
+    campo.value = '';
+    adicionarEMostrar(cidade);
+  } catch (erro) {
+    mostrarStatus(mensagemDeErro(erro), 'erro');
+  }
+}
+
+/* Browser API: Geolocation (pede permissão; só funciona em contexto seguro) */
+function usarMinhaLocalizacao() {
+  // TODO: verificar navigator.geolocation; getCurrentPosition(sucesso, erro, { timeout: 10000 }); no erro avisar e focar o campo de busca (fallback).
+}
+
+/* ------------------------------------------------------------------
+   Atualização automática (setInterval) — UM timer só
+   ------------------------------------------------------------------ */
+async function atualizarTudo() {
+  // TODO: buscar o clima de TODAS as cidades em paralelo (Promise.all), cada uma com seu try/catch; salvar no cache, redesenhar e escrever a hora da última atualização.
+}
+
+function pararAtualizacao() {
+  clearInterval(timerAtualizacao);
+  timerAtualizacao = null;
+}
+
+function iniciarAtualizacao() {
+  // TODO: chamar pararAtualizacao() antes (nunca 2 timers) e guardar em timerAtualizacao o setInterval(atualizarTudo, 10 * MINUTO).
+}
+
+/* ------------------------------------------------------------------
+   Inicialização
+   ------------------------------------------------------------------ */
+function iniciar() {
+  // Unidade salva → marcar o rádio certo
+  document.querySelector('input[name="unidade"][value="' + unidade + '"]').checked = true;
+
+  // Eventos
+  document.getElementById('form-busca').addEventListener('submit', aoBuscar);
+  document.getElementById('btn-localizacao').addEventListener('click', usarMinhaLocalizacao);
+
+  document.querySelectorAll('.btn-sugestao').forEach(function (botao) {
+    botao.addEventListener('click', function () {
+      adicionarEMostrar({
+        nome: botao.dataset.nome,
+        latitude: Number(botao.dataset.lat),        // dataset sempre devolve string
+        longitude: Number(botao.dataset.lon)
+      });
+    });
+  });
+
+  document.querySelectorAll('input[name="unidade"]').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      unidade = radio.value;
+      salvarUnidade(unidade);                       // lembra após o F5
+      atualizarTela();                              // sem novo fetch: só reformata
+    });
+  });
+
+  document.getElementById('btn-limpar').addEventListener('click', function () {
+    limparTudo();
+    cidadeAtual = null;
+    atualizarTela();
+    mostrarAviso('Lista limpa.');
+  });
+
+  const chkAuto = document.getElementById('chk-auto');
+  chkAuto.checked = carregarAuto();
+  chkAuto.addEventListener('change', function () {
+    salvarAuto(chkAuto.checked);
+    if (chkAuto.checked) {
+      iniciarAtualizacao();
+    } else {
+      pararAtualizacao();
+    }
+  });
+  if (chkAuto.checked) {
+    iniciarAtualizacao();
+  }
+
+  // Aba escondida → pausa o timer; ao voltar, atualiza na hora e recomeça
+  document.addEventListener('visibilitychange', function () {
+    if (!chkAuto.checked) {
+      return;
+    }
+    if (document.hidden) {
+      pararAtualizacao();
+    } else {
+      atualizarTudo();
+      iniciarAtualizacao();
+    }
+  });
+
+  // Primeira pintura a partir do que estava salvo (sobrevive ao F5)
+  const cidades = carregarCidades();
+  if (cidades.length &gt; 0) {
+    cidadeAtual = cidades[0];
+  }
+  atualizarTela();
+  if (cidadeAtual) {
+    carregarClima(cidadeAtual, false);
+  }
+}
+
+iniciar();</code></pre>
+
+  <h2 class="section pagebreak">9. Passo a passo sugerido</h2>
+  <table>
+    <tr><th>Etapa</th><th>O que fazer</th><th>Como saber que funcionou</th></tr>
+    <tr><td>1 (terça)</td><td>Abrir o <code>index.html</code> e o <code>style.css</code> do modelo; ler cada comentário; trocar nomes, textos e cores mantendo os tokens; rodar o Lighthouse</td><td>Acessibilidade e SEO ≥ 90; Tab percorre tudo na ordem certa</td></tr>
+    <tr><td>2 (quinta)</td><td>Escrever <code>storage.js</code>: <code>carregarCidades</code> (<code>|| []</code>), <code>salvarCidades</code> (<code>stringify</code>), <code>adicionarCidade</code>, <code>removerCidade</code>, <code>limparTudo</code>, <code>carregarUnidade</code>/<code>salvarUnidade</code></td><td>No Console: <code>carregarCidades()</code> devolve <code>[]</code> na 1ª visita; a chave aparece em Application</td></tr>
+    <tr><td>3 (quinta)</td><td>Escrever <code>renderizarLista</code> e <code>mostrarAviso</code> em <code>ui.js</code></td><td>A lista reaparece após F5; o aviso some em 3 s</td></tr>
+    <tr><td>4 (sexta)</td><td>Escrever <code>buscarJSON</code> e <code>buscarClima</code>; depois <code>decodificarTempo</code> e <code>renderizarCard</code></td><td>Aba Network mostra o pedido (200); o card mostra o clima</td></tr>
+    <tr><td>5 (sexta)</td><td>Completar <code>carregarClima</code> com os 3 estados e o cache</td><td>Network › Offline: aparece a mensagem de erro, não tela branca</td></tr>
+    <tr><td>6 (sexta ⭐)</td><td><code>buscarCoordenadas</code> e <code>usarMinhaLocalizacao</code></td><td>Cidade inexistente não gera erro no Console; localização negada leva à busca por nome</td></tr>
+    <tr><td>7 (sexta ⭐)</td><td><code>atualizarTudo</code> e <code>iniciarAtualizacao</code></td><td>"Timers"/Network: nunca dois pedidos por ciclo</td></tr>
+  </table>
+
+  <h2 class="section">10. Plano de testes (cenários)</h2>
+  <table>
+    <tr><th>#</th><th>Cenário</th><th>Resultado esperado</th></tr>
+    <tr><td>T1</td><td>Abrir com o <code>localStorage</code> vazio (Application › Clear site data)</td><td>Mensagem de lista vazia; <b>nenhum</b> erro no Console</td></tr>
+    <tr><td>T2</td><td>Adicionar 3 cidades, F5, fechar e reabrir a aba</td><td>Lista e unidade preservadas</td></tr>
+    <tr><td>T3</td><td>Escolher °F e F5</td><td>°F continua marcado; valores reformatados sem nova requisição</td></tr>
+    <tr><td>T4</td><td>Network › Offline e "Ver clima"</td><td>Mensagem de erro anunciada; sem tela em branco</td></tr>
+    <tr><td>T5</td><td>Trocar a URL do Forecast por um endereço inexistente (404)</td><td>Mensagem de erro (não "undefined°C")</td></tr>
+    <tr><td>T6</td><td>Buscar "Atlantida de Marte" e "São Paulo"</td><td>"não encontrada" sem erro no Console; acento e espaço funcionam</td></tr>
+    <tr><td>T7</td><td>Usar minha localização: permitir e bloquear</td><td>Permitir: cidade adicionada; bloquear: aviso + foco no campo</td></tr>
+    <tr><td>T8</td><td>Ligar a atualização automática, trocar de aba e voltar</td><td>Um pedido por ciclo; pausa ao esconder; atualiza ao voltar</td></tr>
+    <tr><td>T9</td><td>Navegar só com Tab/Shift+Tab/Enter; ligar o Narrador</td><td>Foco sempre visível; nomes e mensagens anunciados</td></tr>
+    <tr><td>T10</td><td>Rodar o Lighthouse (Acessibilidade e SEO) e testar em 360px, 768px e 1280px</td><td>Notas ≥ 90; sem rolagem horizontal</td></tr>
+  </table>
+
+  <h2 class="section">11. Armadilhas frequentes (e dicas para revisar código de IA)</h2>
+  <ul>
+    <li><b>Um só <code>await</code>:</b> sem o segundo (<code>await resposta.json()</code>) você recebe uma Promise, não os dados.</li>
+    <li><b>Achar que 404 cai no <code>catch</code>:</b> não cai; use <code>response.ok</code>.</li>
+    <li><b>Esquecer <code>encodeURIComponent</code>:</b> "São Paulo" quebra a URL.</li>
+    <li><b><code>results[0]</code> sem checar:</b> cidade inexistente gera <code>TypeError</code>.</li>
+    <li><b><code>setInterval</code> dentro de um clique:</b> cada clique cria um timer novo; guarde o id e pare o anterior.</li>
+    <li><b>Tempos em segundos:</b> <code>setTimeout</code> e <code>setInterval</code> usam <b>milissegundos</b>.</li>
+    <li><b><code>innerHTML</code> com dado de fora:</b> use <code>textContent</code>.</li>
+    <li><b>Mensagem de erro que some sozinha ou só muda de cor:</b> falha de acessibilidade.</li>
+    <li><b>Código da IA:</b> a IA entrega o "caminho feliz". Pergunte-se: e na 1ª visita? e sem rede? e com 404? e se negarem a permissão? e se eu clicar 5 vezes? E só use o que você consegue explicar.</li>
+  </ul>
+
+  <h2 class="section">12. Checklist final de entrega</h2>
+  <ul class="checklist">
+    <li>Um só <code>h1</code>; landmarks corretos; <code>lang="pt-BR"</code>; <code>title</code> e <code>meta description</code>.</li>
+    <li>Todo campo com <code>label for</code>; <code>alt</code> decorativo e informativo corretos; foco visível; skip link.</li>
+    <li>Cidades e unidade sobrevivem ao F5; sem erro de <code>null</code> na 1ª visita.</li>
+    <li><code>fetch</code> com dois <code>await</code>, <code>response.ok</code>, <code>try/catch</code> e os 3 estados.</li>
+    <li>Rede offline mostra mensagem acessível, não tela branca.</li>
+    <li>⭐ Geocoding com <code>results</code> checado; geolocalização com fallback; um só intervalo ativo; aviso com <code>setTimeout</code>.</li>
+    <li>Lighthouse de Acessibilidade e SEO ≥ 90 (com prints antes e depois).</li>
+    <li>Você explica cada função, inclusive o que a IA errou e como consertou.</li>
+  </ul>
+
+  <footer>
+    Desenvolvimento Front-End [React] T4 — SENAI/SC — Módulo 1, Semana 11<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+
+</div>
+</body>
+</html>

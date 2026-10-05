@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de rota de coleta — AgroLog</title>
+  <meta name="description" content="Formulário acessível para cadastrar rotas de coleta da AgroLog." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo">
+    <h1>Cadastro de rota de coleta</h1>
+  </header>
+
+  <main class="container">
+
+    <!-- Região viva: o leitor de tela ANUNCIA o texto que o JavaScript escrever aqui.
+         Ela precisa existir no HTML ANTES da mudança. -->
+    <!-- TODO: criar o resumo de erros e o aviso de sucesso: <p id="resumo" role="alert" hidden></p> e <p id="sucesso" role="status" hidden></p> -->
+
+    <section class="cartao" aria-labelledby="t-form">
+      <h2 id="t-form">Dados da rota</h2>
+
+      <!-- novalidate: desligamos a validação padrão do navegador para mostrar NOSSAS mensagens acessíveis -->
+      <form id="form-rota" novalidate>
+
+        <div class="campo">
+          <!-- TODO: ligar o rótulo ao campo com <label for="origem">Origem</label> -->
+          <input type="text" id="origem" name="origem" autocomplete="off" required />
+          <p class="erro-campo" id="erro-origem" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="destino">Destino</label>
+          <input type="text" id="destino" name="destino" autocomplete="off" required />
+          <p class="erro-campo" id="erro-destino" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="data">Data da coleta</label>
+          <input type="date" id="data" name="data" required />
+          <p class="erro-campo" id="erro-data" hidden></p>
+        </div>
+
+        <div class="campo">
+          <label for="carga">Tipo de carga</label>
+          <select id="carga" name="carga" required>
+            <option value="">Selecione…</option>
+            <option value="graos">Grãos</option>
+            <option value="hortifruti">Hortifrúti</option>
+            <option value="insumos">Insumos agrícolas</option>
+          </select>
+          <p class="erro-campo" id="erro-carga" hidden></p>
+        </div>
+
+        <!-- TODO: agrupar os dois rádios em <fieldset> com <legend>Urgência</legend> -->
+
+        <div class="campo">
+          <label for="obs">Observações</label>
+          <!-- TODO: ligar a dica ao campo com aria-describedby="dica-obs" (e criar <p id="dica-obs">) -->
+        </div>
+
+        <button type="submit" class="btn">Cadastrar rota</button>
+      </form>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

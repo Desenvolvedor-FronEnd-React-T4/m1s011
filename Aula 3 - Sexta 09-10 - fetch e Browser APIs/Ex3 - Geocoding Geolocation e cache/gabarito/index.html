@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Buscar por nome ou localização — PrevisaoCerta</title>
+  <meta name="description" content="Exercício: Geocoding, Geolocation com fallback, cache no localStorage e tempo limite no fetch." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Buscar por nome ou localização</h1></header>
+
+  <main class="container">
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section class="cartao" aria-labelledby="t-busca">
+      <h2 id="t-busca">Buscar cidade</h2>
+
+      <form id="form-busca" role="search">
+        <label for="input-cidade">Nome da cidade</label>
+        <div class="linha">
+          <input type="search" id="input-cidade" name="cidade" autocomplete="off" />
+          <button type="submit" class="btn">Buscar</button>
+        </div>
+      </form>
+
+      <p style="margin-top:12px">
+        <button type="button" id="btn-localizacao" class="btn btn-sec">Usar minha localização</button>
+      </p>
+      <p class="nota">Geolocation só funciona em contexto seguro (<code>localhost</code> / Live Server contam).
+        Teste negando a permissão: o app precisa continuar útil.</p>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-card">
+      <h2 id="t-card">Clima atual</h2>
+      <article id="card-clima">
+        <h3 class="card-cidade">Busque uma cidade</h3>
+        <dl>
+          <dt>Temperatura</dt>
+          <dd class="card-temp">—</dd>
+          <dt>Condição</dt>
+          <dd class="card-desc">—</dd>
+          <dt>Origem do dado</dt>
+          <dd class="card-origem">—</dd>
+        </dl>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

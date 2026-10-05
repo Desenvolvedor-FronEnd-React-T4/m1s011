@@ -1,0 +1,62 @@
+/* ===== Base visual AgroLog / PrevisaoCerta (igual em todos os exercícios) =====
+   Contrastes: branco sobre #2e7d32 = 5,1:1 · branco sobre #1b5e20 = 7,9:1 · #212121 sobre #f4f7f2 ≈ 15:1 */
+:root {
+  --verde-campo: #1b5e20;
+  --verde-folha: #2e7d32;
+  --verde-claro: #e8f5e9;
+  --ambar-foco: #ffb300;
+  --grafite: #212121;
+  --texto-suave: #5f6b61;
+  --fundo: #f4f7f2;
+  --borda: #cfd8cc;
+  --erro: #b71c1c;
+  --erro-fundo: #fdecea;
+  --info: #0d47a1;
+  --info-fundo: #e3f0fd;
+}
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", Roboto, Arial, sans-serif; color: var(--grafite); background: var(--fundo); line-height: 1.5; }
+.container { max-width: 720px; margin: 0 auto; padding: 16px; }
+header.topo { background: var(--verde-campo); color: #fff; padding: 14px 16px; }
+header.topo h1 { margin: 0; font-size: 1.4rem; }
+h2 { color: var(--verde-campo); font-size: 1.25rem; margin: 0 0 8px; }
+.cartao { background: #fff; border: 1px solid var(--borda); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+
+/* foco visível: NUNCA remover */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--ambar-foco);
+  outline-offset: 2px;
+}
+
+.btn { font: inherit; font-weight: 600; min-height: 44px; padding: 10px 16px; border: 2px solid var(--verde-folha); border-radius: 10px; background: var(--verde-folha); color: #fff; cursor: pointer; transition: background 0.2s; }
+.btn:hover { background: var(--verde-campo); }
+.btn-sec { background: #fff; color: var(--verde-campo); }
+.btn-sec:hover { background: var(--verde-claro); }
+.btn-perigo { background: #fff; border-color: var(--erro); color: var(--erro); }
+.btn-perigo:hover { background: var(--erro-fundo); }
+
+label { font-weight: 600; }
+input[type="text"], input[type="search"], input[type="email"], input[type="date"], select, textarea {
+  font: inherit; padding: 10px 12px; border: 2px solid var(--borda); border-radius: 10px; min-height: 44px; width: 100%;
+}
+fieldset { border: 1px solid var(--borda); border-radius: 10px; margin: 12px 0; padding: 8px 12px; }
+legend { font-weight: 600; padding: 0 6px; }
+
+.status { margin: 0 0 16px; padding: 12px 14px; border-radius: 10px; border-left: 6px solid var(--info); background: var(--info-fundo); color: var(--info); }
+.status[hidden] { display: none; }
+.status.sucesso { border-color: var(--verde-folha); background: var(--verde-claro); color: var(--verde-campo); }
+.status.erro { border-color: var(--erro); background: var(--erro-fundo); color: var(--erro); }
+.nota { color: var(--texto-suave); font-size: 0.9rem; }
+.lista { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.item { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border: 1px solid var(--borda); border-radius: 10px; background: var(--fundo); flex-wrap: wrap; }
+.linha { display: flex; gap: 8px; flex-wrap: wrap; }
+.linha input { flex: 1; min-width: 160px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Específico do exercício */
+#card-clima dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 6px 16px; }
+#card-clima dt { color: var(--texto-suave); }
+#card-clima dd { margin: 0; font-weight: 600; }
+.card-temp { font-size: 2rem; color: var(--verde-campo); }
+.card-cidade { margin: 0 0 8px; }
+code { background: var(--verde-claro); padding: 1px 6px; border-radius: 4px; }

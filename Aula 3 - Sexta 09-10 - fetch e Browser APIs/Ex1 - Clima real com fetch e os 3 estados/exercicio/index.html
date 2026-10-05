@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clima real com fetch — PrevisaoCerta</title>
+  <meta name="description" content="Exercício de fetch: clima real com os três estados (carregando, sucesso e erro)." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Clima real com fetch</h1></header>
+
+  <main class="container">
+
+    <!-- Região viva dos 3 estados: o leitor de tela anuncia "Carregando…", o sucesso e o erro -->
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section class="cartao" aria-labelledby="t-cidade">
+      <h2 id="t-cidade">Escolha a cidade</h2>
+      <!-- Coordenadas FIXAS (caminho-base): o iniciante não tropeça no Geocoding -->
+      <div class="linha" role="group" aria-label="Cidades de coleta e entrega">
+        <button type="button" class="btn btn-sec btn-cidade" data-nome="Florianópolis" data-lat="-27.5954" data-lon="-48.5480">Florianópolis</button>
+        <button type="button" class="btn btn-sec btn-cidade" data-nome="Curitiba" data-lat="-25.4284" data-lon="-49.2733">Curitiba</button>
+        <button type="button" class="btn btn-sec btn-cidade" data-nome="Porto Alegre" data-lat="-30.0346" data-lon="-51.2177">Porto Alegre</button>
+        <button type="button" class="btn btn-sec btn-cidade" data-nome="Chapecó" data-lat="-27.1004" data-lon="-52.6152">Chapecó</button>
+      </div>
+
+      <!-- Laboratório: provoca um 404 de propósito para provar o response.ok -->
+      <p style="margin-top:14px">
+        <label for="modo">Endereço da API (laboratório)</label>
+        <select id="modo">
+          <option value="normal">Correto</option>
+          <option value="errado">Errado (provoca 404)</option>
+        </select>
+      </p>
+      <p class="nota">Teste também: <strong>DevTools › Network › Offline</strong> e clique em uma cidade.</p>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-card">
+      <h2 id="t-card">Clima atual</h2>
+      <article id="card-clima">
+        <h3 class="card-cidade">Escolha uma cidade</h3>
+        <dl>
+          <dt>Temperatura</dt>
+          <dd class="card-temp">—</dd>
+          <dt>Condição</dt>
+          <dd class="card-desc">—</dd>
+          <dt>Atualizado às</dt>
+          <dd><time class="card-hora">—</time></dd>
+        </dl>
+      </article>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

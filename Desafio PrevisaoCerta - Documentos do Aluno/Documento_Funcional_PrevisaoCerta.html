@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Documento Funcional — PrevisaoCerta (AgroLog)</title>
+<style>
+  :root{
+    --navy:#1b4f72; --navy-dark:#123049; --zebra:#eef4f8;
+    --note-bg:#eaf2f8; --warn-bg:#fff3cd; --code-bg:#1e1e1e;
+    --verde:#2e7d32; --verde-dark:#1b5e20;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:#fff;font-family:Arial,Helvetica,sans-serif;color:#263238;line-height:1.55;font-size:13.5px}
+  .wrap{max-width:980px;margin:auto;padding:28px 34px}
+  h1{color:var(--navy);text-align:center;font-size:27px;margin-bottom:4px}
+  h1 + .subtitle{text-align:center;color:#37474f;font-size:15.5px;font-weight:bold;margin-top:0;margin-bottom:18px}
+  .meta{font-size:12.5px;color:#455a64;border-bottom:1px solid #cfd8dc;padding-bottom:16px;margin-bottom:16px}
+  .meta b{color:#263238}
+  h2.encontro,h2.section,h2.conexao,h2.aula{background:var(--navy);color:#fff;padding:10px 16px;border-radius:4px;font-size:17px;margin-top:34px;margin-bottom:14px;letter-spacing:.2px}
+  h3.bloco{color:var(--navy-dark);border-bottom:2px solid var(--navy);padding-bottom:4px;font-size:15px;margin-top:26px}
+  h3.dia{background:var(--navy-dark);color:#fff;padding:8px 14px;border-radius:4px;font-size:14.5px;margin-top:22px;margin-bottom:10px}
+  h3.questao{color:var(--navy-dark);font-size:14px;margin-top:22px;margin-bottom:2px}
+  .tempo{color:#607d8b;font-weight:normal;font-size:12.5px}
+  .enunciado{font-weight:bold;margin:4px 0 8px}
+  .obj-encontro,.objetivo-encontro{background:var(--zebra);border-left:4px solid var(--navy);padding:10px 14px;margin:14px 0 20px;font-size:13px}
+  .fala{background:var(--zebra);border-radius:5px;padding:10px 14px;margin:10px 0}
+  .fala b.label{color:var(--navy);display:block;margin-bottom:3px}
+  pre{background:var(--code-bg);color:#f8f8f2;padding:12px 14px;border-radius:6px;overflow:auto;font-size:11.8px;line-height:1.5;margin:10px 0;white-space:pre-wrap}
+  code{font-family:Consolas,Menlo,monospace}
+  :not(pre) > code{background:#eef4f8;color:var(--navy);padding:1px 5px;border-radius:3px;font-size:12px}
+  .pergunta{background:#f1f8f4;border-left:4px solid #2a9d8f;padding:9px 14px;margin:10px 0;font-size:13px}
+  .pergunta b{color:#1d7a6e}
+  .nota,.dica,.fio{background:var(--note-bg);border-left:4px solid var(--navy);border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .nota .titulo,.dica .titulo,.fio .titulo{font-weight:bold;color:var(--navy);display:block;margin-bottom:3px}
+  .atencao,.apoio,.observacao{background:var(--warn-bg);border-left:4px solid #e08e00;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .atencao .titulo,.observacao .titulo{font-weight:bold;color:#8a5c00;display:block;margin-bottom:3px}
+  .apoio b{color:#8a5c00}
+  .realizado,.fechamento{background:#eef7f2;border-left:4px solid #2a9d8f;border-radius:4px;padding:10px 14px;margin:12px 0;font-size:12.8px}
+  .realizado .titulo{font-weight:bold;color:#1d7a6e;display:block;margin-bottom:3px}
+  .fechamento{margin:20px 0 8px;font-size:13px}
+  .fechamento b{color:#1d7a6e}
+  .erro-comum{background:#fdecea;border-left:4px solid #d9534f;border-radius:4px;padding:10px 14px;margin:10px 0 22px;font-size:12.8px}
+  .erro-comum .titulo,.erro-comum b:first-child{font-weight:bold;color:#a83a32}
+  .erro-comum .titulo{display:block;margin-bottom:3px}
+  .checklist-final{background:var(--navy);color:#fff;padding:11px 16px;border-radius:4px;font-size:16px;margin-top:36px}
+  table{width:100%;border-collapse:collapse;margin:10px 0 20px;font-size:12.6px}
+  th{background:var(--navy);color:#fff;text-align:left;padding:7px 10px}
+  td{padding:7px 10px;border-bottom:1px solid #e3e9ec;vertical-align:top}
+  tr:nth-child(even) td{background:var(--zebra)}
+  td.correta{font-weight:bold;color:#1d7a6e}
+  .slides{white-space:nowrap;color:var(--navy);font-weight:bold}
+  .comentario{font-size:12.5px;color:#455a64;margin:0 0 18px}
+  .comentario b{color:#263238}
+  .conferencia{background:var(--zebra);border-left:4px solid var(--navy);border-radius:4px;padding:12px 16px;margin-top:16px;font-size:12.8px}
+  .conferencia li{margin-bottom:6px}
+  .comparacao{display:flex;gap:16px;margin:12px 0;flex-wrap:wrap}
+  .comparacao .lado{flex:1;min-width:280px}
+  .rotulo-antes,.rotulo-depois{display:inline-block;color:#fff;font-size:11px;font-weight:bold;padding:3px 10px;border-radius:3px 3px 0 0}
+  .rotulo-antes{background:#d9534f}.rotulo-depois{background:#2a9d8f}
+  .caixa-antes{border:2px solid #d9534f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-depois{border:2px solid #2a9d8f;border-top:none;border-radius:0 0 6px 6px}
+  .caixa-antes pre,.caixa-depois pre{margin:0;border-radius:0}
+  .checklist li{list-style:none;margin-bottom:7px;padding-left:24px;position:relative;font-size:13px}
+  .checklist li::before{content:"✓";position:absolute;left:0;color:#2a9d8f;font-weight:bold}
+  .video-item{border:1px solid #e3e9ec;border-radius:6px;padding:10px 14px;margin-bottom:10px}
+  .video-item .titulo-video{font-weight:bold;color:var(--navy-dark);display:block;margin-bottom:2px}
+  .video-item .canal{color:#607d8b;font-size:12px}
+  .video-item .desc{margin:4px 0 0;font-size:12.6px}
+  .paleta{display:flex;flex-wrap:wrap;gap:10px;margin:10px 0 18px}
+  .cor{width:140px;border:1px solid #cfd8dc;border-radius:8px;overflow:hidden;font-size:11.5px}
+  .cor .amostra{height:46px}
+  .cor .info{padding:6px 8px}
+  a{color:var(--navy)}
+  ul{margin-top:6px}
+  li{margin-bottom:5px}
+  hr{border:none;border-top:1px solid #cfd8dc;margin:26px 0}
+  .pagebreak{break-before:page}
+  footer{margin-top:40px;padding-top:14px;border-top:1px solid #e3e9ec;color:#78909c;font-size:11px;text-align:center}
+  @media print{ .wrap{padding:0} a{color:var(--navy) !important;text-decoration:underline} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Documento Funcional — PrevisaoCerta</h1>
+  <p class="subtitle">Painel climático operacional da transportadora AgroLog — o que construir, para quem, e como deve parecer</p>
+  <p class="meta">
+    Desenvolvimento Front-End [React] T4 | Módulo 1 | Semana 11 | Projeto condutor: <b>Desafio PrevisaoCerta</b><br>
+    Leia este documento <b>primeiro</b>: ele diz <i>o quê</i> e <i>por quê</i>. O documento <b>Refinamento Técnico</b> diz <i>como</i> (arquivos, funções e modelos de código).
+  </p>
+
+  <h2 class="section">1. Visão geral</h2>
+  <table>
+    <tr><th>Item</th><th>Descrição</th></tr>
+    <tr><td>Produto</td><td><b>PrevisaoCerta</b> — painel web (HTML + CSS + JavaScript puros, sem bibliotecas)</td></tr>
+    <tr><td>Cliente</td><td><b>AgroLog</b>, transportadora de cargas do agronegócio (coleta e entrega em várias cidades)</td></tr>
+    <tr><td>Problema-âncora</td><td>Os despachantes precisam acompanhar o tempo nas cidades de coleta e entrega. A ferramenta tem que ser <b>acessível</b>, <b>lembrar das rotas</b> e <b>mostrar dados reais</b>.</td></tr>
+    <tr><td>Por que isso importa</td><td>Chuva forte alaga estradas de terra e atrasa a colheita; saber o clima antes de despachar evita atrasos e prejuízo. Uma ferramenta que esquece as cidades a cada F5, mostra dados falsos ou trava quando a internet cai <b>não serve</b> a quem trabalha o dia todo nela.</td></tr>
+    <tr><td>Fonte de dados</td><td>API pública <b>Open-Meteo</b> (previsão e Geocoding), sem chave e sem cadastro</td></tr>
+    <tr><td>Quando</td><td>Construído ao longo da semana: terça (estrutura), quinta (memória), sexta (internet, relógio e localização)</td></tr>
+  </table>
+
+  <h2 class="section">2. Quem usa</h2>
+  <table>
+    <tr><th>Persona</th><th>Contexto</th><th>O que precisa</th></tr>
+    <tr><td><b>Marta, despachante</b></td><td>Fica o dia todo diante do computador, com várias abas abertas, decidindo quais caminhões saem</td><td>Ver rápido o clima de cada cidade da rota; que o painel lembre as cidades; que se atualize sozinho</td></tr>
+    <tr><td><b>Carlos, despachante que usa só o teclado</b></td><td>Tem lesão no punho e navega com Tab e Enter</td><td>Tudo alcançável por teclado, com foco bem visível</td></tr>
+    <tr><td><b>Dona Lúcia, supervisora com baixa visão</b></td><td>Usa leitor de tela e zoom de 200%</td><td>Estrutura clara, mensagens anunciadas, bom contraste</td></tr>
+  </table>
+
+  <h2 class="section">3. Escopo</h2>
+  <table>
+    <tr><th>Nível</th><th>O que entra</th></tr>
+    <tr><td><b>Caminho-base</b> (obrigatório)</td><td>Página semântica e acessível · lista de cidades monitoradas que sobrevive ao F5 · preferência °C/°F lembrada · clima real de cada cidade (coordenadas fixas) · os 3 estados (carregando, sucesso, erro) · mensagem de erro acessível ao derrubar a rede</td></tr>
+    <tr><td><b>⭐ Estrela</b></td><td>Buscar qualquer cidade pelo nome (Geocoding → Forecast) · botão "Usar minha localização" com fallback · atualização automática com <code>setInterval</code> (um timer só) · aviso que some em 3 s com <code>setTimeout</code> · cache com validade · tempo limite no <code>fetch</code></td></tr>
+    <tr><td><b>Fora do escopo</b></td><td>Login, banco de dados em servidor, mapas, previsão de vários dias, bibliotecas e frameworks</td></tr>
+  </table>
+
+  <h2 class="section pagebreak">4. Requisitos funcionais</h2>
+  <table>
+    <tr><th>ID</th><th>Requisito</th><th>Critério de aceite</th><th>Nível</th></tr>
+    <tr><td>RF01</td><td>Exibir o painel com cabeçalho, navegação, busca, lista de cidades, card de clima, aviso e rodapé</td><td>Estrutura com <code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code> e <code>footer</code>; um só <code>h1</code></td><td>Base</td></tr>
+    <tr><td>RF02</td><td>Adicionar uma cidade à lista a partir de sugestões fixas (Florianópolis, Curitiba, Porto Alegre, Chapecó)</td><td>Clicar numa sugestão inclui a cidade e mostra o clima; não duplica</td><td>Base</td></tr>
+    <tr><td>RF03</td><td>Remover uma cidade e limpar toda a lista</td><td>Botão "Remover" com nome acessível ("Remover Curitiba"); "Limpar tudo" apaga só os dados do painel</td><td>Base</td></tr>
+    <tr><td>RF04</td><td>Lembrar as cidades monitoradas</td><td>Dar F5 ou fechar e reabrir a aba mantém a lista (chave visível em Application › Local Storage); na 1ª visita não há erro no Console</td><td>Base</td></tr>
+    <tr><td>RF05</td><td>Escolher a unidade de temperatura (°C/°F) e lembrar a escolha</td><td>A temperatura é reformatada sem nova requisição; a escolha sobrevive ao F5</td><td>Base</td></tr>
+    <tr><td>RF06</td><td>Mostrar o clima atual real de uma cidade (temperatura, condição em português com ícone, hora da medição)</td><td>Dados vêm da Open-Meteo; o código numérico (<code>weather_code</code>) é traduzido para texto</td><td>Base</td></tr>
+    <tr><td>RF07</td><td>Informar os três estados da busca</td><td>"Carregando…", sucesso e erro aparecem numa região anunciada por leitor de tela (<code>aria-live</code>)</td><td>Base</td></tr>
+    <tr><td>RF08</td><td>Não travar quando a rede cai ou o servidor responde erro</td><td>Com Network › Offline ou URL errada (404), aparece "Não foi possível carregar. Tente de novo." — <b>nunca tela em branco</b>, nunca "undefined°C"</td><td>Base</td></tr>
+    <tr><td>RF09</td><td>Buscar cidade pelo nome</td><td>Digitar "Joinville" encontra e adiciona; "Atlantida de Marte" mostra "não encontrada" sem erro no Console; nomes com acento/espaço funcionam</td><td>⭐</td></tr>
+    <tr><td>RF10</td><td>"Usar minha localização"</td><td>Com permissão: adiciona "Minha localização". Negada ou indisponível: avisa e leva o foco ao campo de busca</td><td>⭐</td></tr>
+    <tr><td>RF11</td><td>Atualização automática a cada 10 minutos (15 s em aula), ligável e desligável, lembrando a escolha</td><td>No máximo <b>um</b> intervalo ativo; pausa quando a aba fica oculta; mostra "Última atualização às HH:MM"</td><td>⭐</td></tr>
+    <tr><td>RF12</td><td>Avisos de sucesso que desaparecem sozinhos em 3 s</td><td>Erros <b>não</b> desaparecem sozinhos</td><td>⭐</td></tr>
+    <tr><td>RF13</td><td>Usar o último dado salvo quando a internet falhar e cache fresco quando houver</td><td>Cache com validade de 10 min; sem rede e com dado antigo: mostra o dado com aviso "Sem conexão. Mostrando o último dado salvo."</td><td>⭐</td></tr>
+  </table>
+
+  <h2 class="section">5. Requisitos não funcionais</h2>
+  <table>
+    <tr><th>Tema</th><th>Requisito</th></tr>
+    <tr><td>Acessibilidade</td><td>Lighthouse de Acessibilidade ≥ 90; <code>lang="pt-BR"</code>; skip link; <code>label for</code>; <code>alt</code> decorativo (<code>alt=""</code>) × informativo; foco visível; todo o painel operável só com teclado; contraste mínimo de 4,5 : 1 em textos</td></tr>
+    <tr><td>SEO</td><td>Lighthouse de SEO ≥ 90; <code>&lt;title&gt;</code>, <code>&lt;meta name="description"&gt;</code>, <code>viewport</code> e Open Graph</td></tr>
+    <tr><td>Responsividade</td><td>Mobile-first: legível em 360px, 768px e 1280px, sem rolagem horizontal; alvos de toque de pelo menos 44px</td></tr>
+    <tr><td>Segurança</td><td>Nunca guardar token, senha ou CPF no <code>localStorage</code>; usar <code>textContent</code> (não <code>innerHTML</code>) para dados de fora</td></tr>
+    <tr><td>Robustez</td><td>JSON corrompido no <code>localStorage</code> não pode derrubar a página; cidade inexistente, rede offline e 404 tratados</td></tr>
+    <tr><td>Código</td><td>HTML + CSS + JavaScript puros; funções pequenas, nomes em português, comentários que explicam o <i>porquê</i>; capacidade de explicar cada linha (inclusive a gerada por IA)</td></tr>
+  </table>
+
+  <h2 class="section pagebreak">6. Mapa da tela (wireframe)</h2>
+  <pre><code>┌────────────────────────────────────────────────────────────┐
+│ [skip link: "Pular para o conteúdo"]            (só no foco)│
+│ HEADER  [logo]  AgroLog · PrevisaoCerta                     │
+│         H1: Clima das cidades de coleta e entrega           │
+│         NAV: Buscar · Cidades · Clima atual                 │
+├────────────────────────────────────────────────────────────┤
+│ MAIN                                                        │
+│ ┌ status (aria-live): Carregando… / sucesso / erro ────────┐│
+│ ├──────────────────────────────┬───────────────────────────┤│
+│ │ SECTION Buscar cidade        │ SECTION Clima atual       ││
+│ │  [Nome da cidade ____][Buscar]│  ARTICLE (card)          ││
+│ │  [Usar minha localização]     │   Curitiba               ││
+│ │  Sugestões: [Florianópolis]…  │   Temperatura  22°C      ││
+│ │  Unidade: (•)°C ( )°F         │   Condição  ☁️ Nublado   ││
+│ │ SECTION Cidades monitoradas   │   Atualizado às 09:30    ││
+│ │  ┌──────┐ ┌──────┐            │ ASIDE Atualização        ││
+│ │  │Curitiba│…[Ver clima][Remover]│  [x] a cada 10 min       ││
+│ │  └──────┘ └──────┘            │  Última atualização 09:40││
+│ │  [Limpar tudo]                │                          ││
+│ └──────────────────────────────┴───────────────────────────┘│
+├────────────────────────────────────────────────────────────┤
+│ FOOTER  PrevisaoCerta — dados: Open-Meteo                   │
+└────────────────────────────────────────────────────────────┘
+Celular (360px): tudo em UMA coluna, na ordem: status › busca › cidades › clima atual › atualização.
+Desktop (≥ 1024px): duas colunas (2fr | 1fr).</code></pre>
+
+  <h2 class="section">7. Estados da interface e textos (microcopy)</h2>
+  <table>
+    <tr><th>Situação</th><th>Tipo</th><th>Texto exibido</th><th>Some sozinho?</th></tr>
+    <tr><td>Buscando clima</td><td>carregando</td><td>"Carregando clima de {cidade}…"</td><td>Não (é substituído)</td></tr>
+    <tr><td>Clima recebido</td><td>sucesso</td><td>"Clima de {cidade} atualizado."</td><td>Não (é substituído)</td></tr>
+    <tr><td>Cidade removida / lista limpa / painel atualizado</td><td>sucesso</td><td>"{cidade} removida.", "Lista limpa.", "Painel atualizado."</td><td><b>Sim, em 3 s</b></td></tr>
+    <tr><td>Falha de rede ou erro do servidor</td><td>erro</td><td>"Não foi possível carregar. Tente de novo."</td><td><b>Não</b></td></tr>
+    <tr><td>Tempo limite (8 s)</td><td>erro</td><td>"A busca demorou demais. Tente de novo."</td><td><b>Não</b></td></tr>
+    <tr><td>Sem rede, mas há dado salvo</td><td>erro</td><td>"Sem conexão. Mostrando o último dado salvo de {cidade} (HH:MM)."</td><td><b>Não</b></td></tr>
+    <tr><td>Cidade não encontrada</td><td>erro</td><td>"Cidade "{nome}" não encontrada. Confira a grafia."</td><td><b>Não</b></td></tr>
+    <tr><td>Campo vazio</td><td>erro</td><td>"Digite o nome de uma cidade."</td><td><b>Não</b></td></tr>
+    <tr><td>Localização negada ou indisponível</td><td>erro</td><td>"Não foi possível obter sua localização. Busque pelo nome da cidade."</td><td><b>Não</b></td></tr>
+    <tr><td>Lista vazia</td><td>informativo</td><td>"Nenhuma cidade monitorada ainda. Busque uma cidade ou use as sugestões."</td><td>Some ao adicionar</td></tr>
+  </table>
+  <div class="nota"><span class="titulo">Regra de acessibilidade</span>Mensagem de erro <b>não desaparece sozinha</b> e <b>não depende só da cor</b>: sempre tem texto, borda lateral e fundo próprios (veja a identidade visual).</div>
+
+  <h2 class="section pagebreak">8. Identidade visual</h2>
+  <p>Marca: <b>AgroLog · PrevisaoCerta</b>. Conceito: <i>campo + estrada + clima</i> — verdes de lavoura, âmbar de sol e de alerta, grafite de asfalto. O visual é sóbrio e operacional: informação primeiro, enfeite depois.</p>
+
+  <h3 class="bloco">8.1 Paleta (tokens CSS)</h3>
+  <div class="paleta">
+    <div class="cor"><div class="amostra" style="background:#1b5e20"></div><div class="info"><b>--verde-campo</b><br>#1b5e20<br>Cabeçalho, títulos<br>Branco sobre ele: 7,9 : 1</div></div>
+    <div class="cor"><div class="amostra" style="background:#2e7d32"></div><div class="info"><b>--verde-folha</b><br>#2e7d32<br>Botões principais<br>Branco sobre ele: 5,1 : 1</div></div>
+    <div class="cor"><div class="amostra" style="background:#e8f5e9"></div><div class="info"><b>--verde-claro</b><br>#e8f5e9<br>Destaques, sucesso</div></div>
+    <div class="cor"><div class="amostra" style="background:#ffb300"></div><div class="info"><b>--ambar-foco</b><br>#ffb300<br>Anel de foco e detalhes. <b>Nunca</b> como cor de texto sobre branco (1,8 : 1)</div></div>
+    <div class="cor"><div class="amostra" style="background:#212121"></div><div class="info"><b>--grafite</b><br>#212121<br>Texto principal, rodapé</div></div>
+    <div class="cor"><div class="amostra" style="background:#5f6b61"></div><div class="info"><b>--texto-suave</b><br>#5f6b61<br>Texto secundário<br>Sobre #f4f7f2: 5,2 : 1</div></div>
+    <div class="cor"><div class="amostra" style="background:#f4f7f2"></div><div class="info"><b>--fundo</b><br>#f4f7f2<br>Fundo da página</div></div>
+    <div class="cor"><div class="amostra" style="background:#b71c1c"></div><div class="info"><b>--erro</b><br>#b71c1c<br>Texto de erro<br>Sobre branco: 6,6 : 1</div></div>
+    <div class="cor"><div class="amostra" style="background:#0d47a1"></div><div class="info"><b>--info</b><br>#0d47a1<br>Carregando (informativo)</div></div>
+  </div>
+  <p style="font-size:12.5px">Superfícies de apoio: cartões <code>#ffffff</code> com borda <code>#cfd8cc</code>; erro-fundo <code>#fdecea</code>; info-fundo <code>#e3f0fd</code>. Os contrastes foram calculados pela fórmula da WCAG; confira também no DevTools.</p>
+
+  <h3 class="bloco">8.2 Tipografia e espaçamento</h3>
+  <table>
+    <tr><th>Elemento</th><th>Especificação</th></tr>
+    <tr><td>Família</td><td><code>"Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif</code> (fontes do sistema: rápido e sem dependências)</td></tr>
+    <tr><td>Texto base</td><td>16px (1rem), entrelinha 1,5</td></tr>
+    <tr><td>Título principal (h1)</td><td><code>clamp(1.4rem, 5vw, 2rem)</code>, negrito, branco no cabeçalho</td></tr>
+    <tr><td>Títulos de seção (h2)</td><td>1,3rem, <code>--verde-campo</code></td></tr>
+    <tr><td>Temperatura no card</td><td>2,4rem, negrito, <code>--verde-campo</code></td></tr>
+    <tr><td>Espaçamento e raio</td><td>Base de 16px; cartões com raio de 10px; lacunas de 8–16px</td></tr>
+    <tr><td>Alvos de toque</td><td>Altura mínima de 44px em botões e campos</td></tr>
+  </table>
+
+  <h3 class="bloco">8.3 Logo e ícones</h3>
+  <ul>
+    <li>Logo <code>logo-agrolog.svg</code>: círculo verde (<code>#2e7d32</code>) com folha clara e uma estrada âmbar. É <b>decorativo</b> no cabeçalho (<code>alt=""</code>), pois o nome "AgroLog" já está escrito ao lado.</li>
+    <li>Favicon: a mesma folha, em <code>favicon.svg</code>.</li>
+    <li>Ícones do tempo: emojis (☀️ ☁️ 🌧️ ⛈️…) junto do texto da condição — o texto <b>sempre</b> acompanha o ícone.</li>
+  </ul>
+
+  <h3 class="bloco">8.4 Componentes</h3>
+  <table>
+    <tr><th>Componente</th><th>Aparência</th></tr>
+    <tr><td>Botão principal</td><td>Fundo <code>--verde-folha</code>, texto branco, raio 10px, hover em <code>--verde-campo</code>, <code>transition</code> no estado base</td></tr>
+    <tr><td>Botão secundário</td><td>Fundo branco, borda e texto <code>--verde-campo</code>; hover em <code>--verde-claro</code></td></tr>
+    <tr><td>Botão de perigo (Remover/Limpar)</td><td>Fundo branco, borda e texto <code>--erro</code></td></tr>
+    <tr><td>Foco</td><td>Contorno de <b>3px</b> <code>--ambar-foco</code> com afastamento de 2px — <b>nunca remover</b></td></tr>
+    <tr><td>Status: carregando</td><td>Fundo <code>--info-fundo</code>, texto <code>--info</code>, borda esquerda de 6px azul</td></tr>
+    <tr><td>Status: sucesso</td><td>Fundo <code>--verde-claro</code>, texto <code>--verde-campo</code>, borda esquerda verde</td></tr>
+    <tr><td>Status: erro</td><td>Fundo <code>--erro-fundo</code>, texto <code>--erro</code>, borda esquerda vermelha</td></tr>
+    <tr><td>Cartão de cidade</td><td>Fundo <code>--fundo</code>, borda <code>--borda</code>; a cidade ativa ganha borda e fundo verdes</td></tr>
+    <tr><td>Skip link</td><td>Escondido fora da tela; aparece no canto superior esquerdo, em grafite com texto branco, ao receber foco</td></tr>
+  </table>
+
+  <h3 class="bloco">8.5 Princípios visuais</h3>
+  <ul>
+    <li><b>A cor nunca é a única informação:</b> erro = texto + borda + fundo.</li>
+    <li><b>Movimento mínimo:</b> transições curtas, desligadas com <code>prefers-reduced-motion</code>.</li>
+    <li><b>Mobile-first:</b> o CSS base é o do celular; media queries em 48em e 64em <i>acrescentam</i>.</li>
+    <li><b>Lista responsiva sem media query:</b> <code>grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))</code>.</li>
+  </ul>
+
+  <h2 class="section pagebreak">9. Plano da semana e entregáveis</h2>
+  <table>
+    <tr><th>Dia</th><th>Etapa do Desafio</th><th>Pronto quando</th></tr>
+    <tr><td>Terça 06/10</td><td>Estrutura: HTML semântico, acessível, com SEO e a identidade visual</td><td>Lighthouse de Acessibilidade e SEO ≥ 90; navegação só por teclado</td></tr>
+    <tr><td>Quinta 08/10</td><td>Memória: cidades e unidade no <code>localStorage</code>; aviso com <code>setTimeout</code></td><td>Lista e unidade sobrevivem ao F5; sem erro de <code>null</code> na 1ª visita</td></tr>
+    <tr><td>Sexta 09/10</td><td>Internet e relógio: <code>fetch</code>, 3 estados, erros, ⭐ Geocoding, Geolocation e <code>setInterval</code></td><td>Derrubar a rede e aparecer mensagem (não tela branca); no máximo um timer ativo</td></tr>
+  </table>
+  <p><b>Entregáveis:</b> pasta do projeto com <code>index.html</code>, <code>css/style.css</code>, <code>js/storage.js</code>, <code>js/api.js</code>, <code>js/ui.js</code>, <code>js/app.js</code> e <code>img/</code>; prints das notas do Lighthouse (antes e depois); lista curta "o que a IA errou e como consertei".</p>
+
+  <h3 class="bloco">Rubrica de avaliação</h3>
+  <table>
+    <tr><th>Critério</th><th>Evidência</th></tr>
+    <tr><td>1. Semântica</td><td>Landmarks corretos, um só <code>h1</code>, hierarquia sem saltos</td></tr>
+    <tr><td>2. Acessibilidade</td><td><code>label for</code>, <code>alt</code> certo, foco visível, skip link, <code>aria-live</code>, contraste</td></tr>
+    <tr><td>3. Memória</td><td>Lista e unidade persistem; <code>JSON</code> correto; <code>|| []</code> na 1ª visita</td></tr>
+    <tr><td>4. Dados reais</td><td><code>fetch</code> com <code>await</code> duplo, <code>response.ok</code>, <code>try/catch</code>, 3 estados</td></tr>
+    <tr><td>5. Tempo e dispositivo</td><td><code>setTimeout</code> e <code>setInterval</code> sem vazamento; geolocalização com fallback</td></tr>
+    <tr><td>6. Explicação</td><td>O aluno explica o código e o que a IA errou</td></tr>
+  </table>
+
+  <footer>
+    Desenvolvimento Front-End [React] T4 — SENAI/SC — Módulo 1, Semana 11<br>
+    Professor Lisandro Faria Pinheiro
+  </footer>
+
+
+</div>
+</body>
+</html>

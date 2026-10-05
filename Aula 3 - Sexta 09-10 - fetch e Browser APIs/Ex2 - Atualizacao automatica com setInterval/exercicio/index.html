@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Atualização automática — PrevisaoCerta</title>
+  <meta name="description" content="Exercício de setInterval: painel que se atualiza sozinho sem acumular timers." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Atualização automática do painel</h1></header>
+
+  <main class="container">
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section class="cartao" aria-labelledby="t-clima">
+      <h2 id="t-clima">Florianópolis</h2>
+      <p class="grande" id="temperatura">—</p>
+      <p id="condicao" class="nota">—</p>
+
+      <!-- Contador "atualizado há N s": muda a cada segundo, por isso NÃO usa aria-live
+           (o leitor de tela falaria sem parar). aria-live fica só para o aviso de atualização. -->
+      <p id="idade">Ainda não atualizado.</p>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-ctrl">
+      <h2 id="t-ctrl">Controle</h2>
+      <div class="linha">
+        <button type="button" id="btn-alternar" class="btn">Ligar atualização automática</button>
+        <button type="button" id="btn-agora" class="btn btn-sec">Atualizar agora</button>
+      </div>
+      <p class="nota" id="info-timers">Timers ativos: 0</p>
+      <p class="nota">Em aula o intervalo é de <strong>15 segundos</strong>; em produção seria de 10 minutos
+        (<code>10 * 60 * 1000</code> ms). Troque de aba e volte para ver a pausa automática.</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

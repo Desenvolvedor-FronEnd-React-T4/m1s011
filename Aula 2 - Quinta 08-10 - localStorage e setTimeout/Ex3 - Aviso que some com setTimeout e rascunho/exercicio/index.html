@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aviso da operação — PrevisaoCerta</title>
+  <meta name="description" content="Exercício: setTimeout, sessionStorage × localStorage e limites do armazenamento." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topo"><h1>Aviso da operação</h1></header>
+
+  <main class="container">
+    <!-- Região viva: anuncia as mensagens de aviso (o texto é trocado pelo JavaScript) -->
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <section class="cartao" aria-labelledby="t-aviso">
+      <h2 id="t-aviso">Escrever aviso para os despachantes</h2>
+
+      <label for="texto-aviso">Texto do aviso</label>
+      <textarea id="texto-aviso" rows="3" aria-describedby="dica"></textarea>
+      <p id="dica" class="nota">O que você digita vira <strong>rascunho</strong> (sessionStorage — some ao fechar a aba).
+        Ao publicar, o aviso fica no <strong>localStorage</strong> (continua nas próximas visitas).</p>
+
+      <div class="linha">
+        <button type="button" id="btn-publicar" class="btn">Publicar aviso</button>
+        <button type="button" id="btn-limite" class="btn btn-sec">Testar limite de armazenamento</button>
+      </div>
+    </section>
+
+    <section class="cartao" aria-labelledby="t-publicado">
+      <h2 id="t-publicado">Aviso publicado</h2>
+      <p id="publicado" class="grande-texto">—</p>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
