@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<!-- lang="pt-BR": diz ao leitor de tela e ao buscador qual é o idioma da página -->
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- SEO on-page: título da aba/resultado do Google + resumo exibido na busca -->
+  <title>PrevisaoCerta — Painel climático da AgroLog</title>
+  <meta name="description" content="Painel operacional da AgroLog para acompanhar o clima nas cidades de coleta e entrega." />
+
+  <!-- Open Graph: prévia ao compartilhar o link -->
+  <meta property="og:title" content="PrevisaoCerta — AgroLog" />
+  <meta property="og:description" content="Clima das cidades de coleta e entrega da AgroLog." />
+
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Skip link: primeiro elemento focável da página (teclado) -->
+  <a class="pular" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- LANDMARK 1: header -->
+  <header class="cabecalho">
+    <div class="container cabecalho-interno">
+      <div class="marca">
+        <!-- Logo decorativo: alt="" (o nome AgroLog já está escrito ao lado) -->
+        <img src="img/logo-agrolog.svg" alt="" width="48" height="48" />
+        <div>
+          <p class="marca-nome">AgroLog · PrevisaoCerta</p>
+          <!-- UM só h1 na página -->
+          <h1>Clima das cidades de coleta e entrega</h1>
+        </div>
+      </div>
+
+      <!-- LANDMARK 2: nav (com rótulo, para diferenciar de outras navegações) -->
+      <nav aria-label="Navegação principal">
+        <div class="menu">
+          <a href="#buscar">Buscar</a>
+          <a href="#monitoradas">Cidades</a>
+          <a href="#detalhe">Clima atual</a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- LANDMARK 3: main (UM só por página; tabindex="-1" deixa o skip link mover o foco para cá) -->
+  <main id="conteudo" class="container" tabindex="-1">
+
+    <!-- Região viva: o leitor de tela ANUNCIA o que o JavaScript escrever aqui.
+         Precisa existir no HTML ANTES da mudança. [hidden] = vazia/escondida. -->
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+
+    <div class="layout">
+      <div>
+        <!-- SEÇÃO: buscar cidade (h2 liga o título à seção por aria-labelledby) -->
+        <section id="buscar" class="secao" aria-labelledby="t-buscar">
+          <h2 id="t-buscar">Buscar cidade</h2>
+
+          <!-- role="search" marca o formulário como busca (landmark) -->
+          <form id="form-busca" class="form-busca" role="search">
+            <!-- label for="..." liga o rótulo ao campo pelo id -->
+            <label for="input-cidade">Nome da cidade</label>
+            <div class="campo-linha">
+              <input type="search" id="input-cidade" name="cidade" autocomplete="off" required />
+              <button type="submit" id="btn-buscar" class="btn">Buscar</button>
+            </div>
+          </form>
+
+          <button type="button" id="btn-localizacao" class="btn btn-secundario" style="margin-top:12px">
+            Usar minha localização
+          </button>
+
+          <!-- Sugestões com coordenadas fixas (caminho-base: sem Geocoding) -->
+          <div class="sugestoes" role="group" aria-label="Cidades sugeridas">
+            <button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Florianópolis" data-lat="-27.5954" data-lon="-48.5480">Florianópolis</button>
+            <button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Curitiba" data-lat="-25.4284" data-lon="-49.2733">Curitiba</button>
+            <button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Porto Alegre" data-lat="-30.0346" data-lon="-51.2177">Porto Alegre</button>
+            <button type="button" class="btn btn-secundario btn-sugestao"
+                    data-nome="Chapecó" data-lat="-27.1004" data-lon="-52.6152">Chapecó</button>
+          </div>
+
+          <!-- Preferência °C/°F (persistida no localStorage) -->
+          <fieldset>
+            <legend>Unidade de temperatura</legend>
+            <label class="opcao"><input type="radio" name="unidade" value="celsius" checked /> °C</label>
+            <label class="opcao"><input type="radio" name="unidade" value="fahrenheit" /> °F</label>
+          </fieldset>
+        </section>
+
+        <!-- SEÇÃO: cidades monitoradas -->
+        <section id="monitoradas" class="secao" aria-labelledby="t-monitoradas">
+          <h2 id="t-monitoradas">Cidades monitoradas</h2>
+          <p id="msg-vazio" class="vazio">Nenhuma cidade monitorada ainda. Busque uma cidade ou use as sugestões.</p>
+          <!-- Lista de verdade: o leitor de tela anuncia "lista com N itens" -->
+          <ul id="lista-cidades" class="lista-cidades"></ul>
+          <p style="margin-top:12px">
+            <button type="button" id="btn-limpar" class="btn btn-perigo">Limpar tudo</button>
+          </p>
+        </section>
+      </div>
+
+      <div>
+        <!-- ARTICLE: conteúdo independente (o card faz sentido sozinho) -->
+        <section id="detalhe" class="secao" aria-labelledby="t-detalhe">
+          <h2 id="t-detalhe">Clima atual</h2>
+          <article id="card-clima" class="card-clima">
+            <h3 class="card-cidade">Selecione uma cidade</h3>
+            <dl>
+              <div>
+                <dt>Temperatura</dt>
+                <dd class="card-temp">—</dd>
+              </div>
+              <div>
+                <dt>Condição</dt>
+                <dd class="card-desc">—</dd>
+              </div>
+              <div>
+                <dt>Atualizado às</dt>
+                <dd><time class="card-hora">—</time></dd>
+              </div>
+            </dl>
+          </article>
+        </section>
+
+        <!-- ASIDE: complemento (atualização automática com setInterval) -->
+        <aside class="secao" aria-labelledby="t-auto">
+          <h2 id="t-auto">Atualização automática</h2>
+          <label class="auto-linha" for="chk-auto">
+            <input type="checkbox" id="chk-auto" />
+            Atualizar a cada 10 minutos
+          </label>
+          <p id="ultima-atualizacao" class="nota">Ainda não atualizado.</p>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <!-- LANDMARK 4: footer -->
+  <footer class="rodape">
+    <div class="container">
+      <p>PrevisaoCerta — painel climático operacional da AgroLog. Dados: <a href="https://open-meteo.com/">Open-Meteo</a>.</p>
+    </div>
+  </footer>
+
+  <!-- Terça: ainda sem JavaScript. Na quinta entram js/storage.js, js/api.js, js/ui.js e js/app.js -->
+</body>
+</html>
