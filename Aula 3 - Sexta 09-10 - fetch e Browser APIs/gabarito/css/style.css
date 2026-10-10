@@ -1,0 +1,223 @@
+/* ==========================================================================
+   PrevisaoCerta — AgroLog | Folha de estilo (GABARITO)
+   Mobile-first: o CSS base vale para o celular; media queries ACRESCENTAM.
+   ========================================================================== */
+
+/* 1. TOKENS DA IDENTIDADE VISUAL --------------------------------------------
+   Todas as cores moram aqui. Contrastes (WCAG AA exige 4,5:1 para texto):
+   branco sobre --verde-folha = 5,1:1 · branco sobre --verde-campo = 7,9:1
+   grafite sobre --fundo = ~15:1 · --texto-suave sobre --fundo = 5,2:1       */
+:root {
+  --verde-campo: #1b5e20;   /* cabeçalho, títulos */
+  --verde-folha: #2e7d32;   /* botões principais */
+  --verde-claro: #e8f5e9;   /* superfícies de destaque */
+  --ambar-foco: #ffb300;    /* anel de foco e detalhes (nunca como cor de texto) */
+  --grafite: #212121;       /* texto principal */
+  --texto-suave: #5f6b61;   /* texto secundário */
+  --fundo: #f4f7f2;         /* fundo da página */
+  --superficie: #ffffff;    /* cartões */
+  --borda: #cfd8cc;
+  --erro: #b71c1c;
+  --erro-fundo: #fdecea;
+  --info: #0d47a1;
+  --info-fundo: #e3f0fd;
+  --raio: 10px;
+  --espaco: 16px;
+  --fonte: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 2. RESET E BASE ---------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: var(--fonte);
+  color: var(--grafite);
+  background: var(--fundo);
+  line-height: 1.5;
+}
+
+img { max-width: 100%; height: auto; }
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--espaco);
+}
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 8px; }
+h1 { font-size: clamp(1.4rem, 5vw, 2rem); }
+h2 { font-size: 1.3rem; color: var(--verde-campo); }
+h3 { font-size: 1.1rem; }
+
+/* 3. ACESSIBILIDADE ---------------------------------------------------------
+   NUNCA remover o outline: quem navega por teclado precisa ver o foco.        */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--ambar-foco);
+  outline-offset: 2px;
+}
+
+/* Skip link: invisível até receber foco pelo teclado */
+.pular {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  background: var(--grafite);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: var(--raio);
+  z-index: 10;
+}
+.pular:focus { left: 8px; }
+
+/* Texto só para leitor de tela */
+.so-leitor {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* 4. CABEÇALHO E RODAPÉ ----------------------------------------------------- */
+.cabecalho {
+  background: var(--verde-campo);
+  color: #fff;
+  padding: 14px 0;
+}
+.cabecalho-interno {
+  display: flex;
+  flex-direction: column;       /* celular: empilhado */
+  gap: 12px;
+}
+.marca { display: flex; align-items: center; gap: 12px; }
+.marca-nome { margin: 0; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.cabecalho h1 { margin: 0; }
+
+.menu { display: flex; gap: 16px; flex-wrap: wrap; }
+.menu a { color: #fff; padding: 6px 2px; }
+
+.rodape {
+  margin-top: 32px;
+  padding: 20px 0;
+  background: var(--grafite);
+  color: #e0e0e0;
+  font-size: 0.9rem;
+}
+
+/* 5. CARTÕES E FORMULÁRIOS --------------------------------------------------- */
+main { padding-top: 20px; }
+
+.secao {
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  padding: var(--espaco);
+  margin-bottom: var(--espaco);
+}
+
+.form-busca { display: flex; flex-direction: column; gap: 8px; }
+.form-busca label { font-weight: 600; }
+.campo-linha { display: flex; flex-direction: column; gap: 8px; }
+
+input[type="search"] {
+  font: inherit;
+  padding: 10px 12px;
+  border: 2px solid var(--borda);
+  border-radius: var(--raio);
+  min-height: 44px;                 /* alvo de toque confortável */
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 2px solid var(--verde-folha);
+  border-radius: var(--raio);
+  background: var(--verde-folha);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;   /* transition no estado BASE */
+}
+.btn:hover { background: var(--verde-campo); }
+.btn:active { transform: scale(0.98); }
+.btn-secundario { background: var(--superficie); color: var(--verde-campo); }
+.btn-secundario:hover { background: var(--verde-claro); }
+.btn-perigo { border-color: var(--erro); background: var(--superficie); color: var(--erro); }
+.btn-perigo:hover { background: var(--erro-fundo); }
+
+fieldset { border: 1px solid var(--borda); border-radius: var(--raio); padding: 8px 12px; margin: 12px 0 0; }
+legend { font-weight: 600; padding: 0 6px; }
+.opcao { display: inline-flex; align-items: center; gap: 6px; margin-right: 16px; min-height: 44px; }
+
+.sugestoes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+
+/* 6. STATUS: os 3 estados (carregando / sucesso / erro) ------------------------ */
+.status {
+  margin: 0 0 var(--espaco);
+  padding: 12px 14px;
+  border-radius: var(--raio);
+  border-left: 6px solid var(--info);
+  background: var(--info-fundo);
+  color: var(--info);
+}
+.status[hidden] { display: none; }
+.status.sucesso { border-color: var(--verde-folha); background: var(--verde-claro); color: var(--verde-campo); }
+.status.erro { border-color: var(--erro); background: var(--erro-fundo); color: var(--erro); }
+/* cor + borda + texto: a informação nunca depende só da cor */
+
+/* 7. LISTA DE CIDADES --------------------------------------------------------- */
+.lista-cidades {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));   /* Grid responsivo sem media query */
+  gap: 12px;
+}
+.cidade-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px;
+  border: 1px solid var(--borda);
+  border-radius: var(--raio);
+  background: var(--fundo);
+}
+.cidade-item.ativa { border-color: var(--verde-folha); background: var(--verde-claro); }
+.cidade-nome { font-weight: 700; }
+.cidade-mini { color: var(--texto-suave); }
+.cidade-acoes { display: flex; gap: 8px; flex-wrap: wrap; }
+.vazio { color: var(--texto-suave); margin: 0; }
+
+/* 8. CARD DE CLIMA ------------------------------------------------------------ */
+.card-clima dl { margin: 0; display: grid; grid-template-columns: 1fr; gap: 4px 16px; }
+.card-clima dt { color: var(--texto-suave); font-size: 0.85rem; }
+.card-clima dd { margin: 0 0 8px; font-size: 1.1rem; font-weight: 600; }
+.card-temp { font-size: 2.4rem; font-weight: 700; color: var(--verde-campo); }
+.card-icone { font-size: 2rem; }
+
+.auto-linha { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.nota { color: var(--texto-suave); font-size: 0.9rem; margin: 4px 0 0; }
+
+/* 9. TABLET E DESKTOP: ACRESCENTA (mobile-first) ---------------------------------- */
+@media (min-width: 48em) {                      /* 768px */
+  .cabecalho-interno { flex-direction: row; align-items: center; justify-content: space-between; }
+  .campo-linha { flex-direction: row; align-items: stretch; }
+  .campo-linha input { flex: 1; }
+  .card-clima dl { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 64em) {                      /* 1024px */
+  .layout { display: grid; grid-template-columns: 2fr 1fr; gap: var(--espaco); align-items: start; }
+}
+
+/* 10. PREFERÊNCIAS DO USUÁRIO ---------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}
